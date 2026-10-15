@@ -1,0 +1,9 @@
+{
+  "functions": {
+    "targets": [
+      "file_management_function"
+    ],
+    "ignore": [],
+    "source": "functions"
+  }
+}

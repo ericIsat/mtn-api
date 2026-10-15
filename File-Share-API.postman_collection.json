@@ -1,0 +1,125 @@
+{
+  "info": {
+    "_postman_id": "file-share-api-collection",
+    "name": "File Share API",
+    "description": "Complete API collection for File Share - Upload, Download, List, and Delete files",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{BASE_URL}}/health",
+          "host": ["{{BASE_URL}}"],
+          "path": ["health"]
+        },
+        "description": "Check if the API server is running and healthy"
+      }
+    },
+    {
+      "name": "Upload File",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "description": "File to upload",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "country",
+              "value": "{{COUNTRY}}",
+              "description": "Country name (e.g., Zambia, South Sudan)",
+              "type": "text"
+            },
+            {
+              "key": "uploadedBy",
+              "value": "admin",
+              "description": "Optional: Admin identifier",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/api/files/upload",
+          "host": ["{{BASE_URL}}"],
+          "path": ["api", "files", "upload"]
+        },
+        "description": "Upload a new file with country tag. Returns fileId for future operations."
+      }
+    },
+    {
+      "name": "List All Files",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{BASE_URL}}/api/files",
+          "host": ["{{BASE_URL}}"],
+          "path": ["api", "files"]
+        },
+        "description": "Get a list of all uploaded files with their metadata"
+      }
+    },
+    {
+      "name": "List Files by Country",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{BASE_URL}}/api/files?country={{COUNTRY}}",
+          "host": ["{{BASE_URL}}"],
+          "path": ["api", "files"],
+          "query": [
+            {
+              "key": "country",
+              "value": "{{COUNTRY}}",
+              "description": "Filter files by country (e.g., Zambia, South Sudan)"
+            }
+          ]
+        },
+        "description": "Get files filtered by country. Set the COUNTRY variable to filter results."
+      }
+    },
+    {
+      "name": "Download File",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{BASE_URL}}/api/files/{{FILE_ID}}",
+          "host": ["{{BASE_URL}}"],
+          "path": ["api", "files", "{{FILE_ID}}"]
+        },
+        "description": "Download a file by its ID. Replace {{FILE_ID}} with actual file ID."
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": "http://localhost:3000/server/file_management_function",
+      "type": "string",
+      "description": "Base URL for the File Share API"
+    },
+    {
+      "key": "FILE_ID",
+      "value": "",
+      "type": "string",
+      "description": "File ID from upload response"
+    },
+    {
+      "key": "COUNTRY",
+      "value": "Zambia",
+      "type": "string",
+      "description": "Country name for filtering files (e.g., Zambia, South Sudan)"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "defaults": {
+    "project": 1,
+    "env": 1
+  },
+  "actives": {
+    "project": 1,
+    "env": 1
+  },
+  "projects": [
+    {
+      "idx": 1,
+      "id": "130987000000016001",
+      "name": "secure-data-bridge",
+      "domain": {
+        "id": "10135575565",
+        "name": "secure-data-bridge-942310354.development"
+      },
+      "timezone": "Antarctica/Macquarie",
+      "env": [
+        {
+          "idx": 1,
+          "id": "942310354",
+          "name": "Development",
+          "type": 3
+        }
+      ]
+    }
+  ]
+}

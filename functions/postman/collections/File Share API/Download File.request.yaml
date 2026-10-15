@@ -1,0 +1,5 @@
+$kind: http-request
+description: Download a file by its ID. Replace {{FILE_ID}} with actual file ID.
+url: "{{BASE_URL}}/api/files/{{FILE_ID}}"
+method: GET
+order: 5000

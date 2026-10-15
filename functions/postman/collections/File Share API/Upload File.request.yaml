@@ -1,0 +1,20 @@
+$kind: http-request
+description: Upload a new file with country tag. Returns fileId for future operations.
+url: "{{BASE_URL}}/api/files/upload"
+method: POST
+body:
+  type: formdata
+  content:
+    - type: file
+      key: file
+      src: []
+      description: File to upload
+    - type: text
+      key: country
+      value: "{{COUNTRY}}"
+      description: Country name (e.g., Zambia, South Sudan)
+    - type: text
+      key: uploadedBy
+      value: admin
+      description: "Optional: Admin identifier"
+order: 2000

@@ -1,0 +1,6 @@
+$kind: collection
+description: Complete API collection for File Share - Upload, Download, List, and Delete files
+variables:
+  BASE_URL: http://localhost:3000/server/file_management_function
+  FILE_ID: ""
+  COUNTRY: Zambia
