@@ -1,0 +1,17 @@
+$kind: http-request
+url: "{{baseUrl}}/master/tax-payer-categories/:id"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: tax-payer-category-uuid-here
+body:
+  type: text
+  content: |-
+    {
+      "name": "Kenyan Resident",
+      "description": "Kenyan residents for tax purposes",
+      "isActive": true
+    }
+order: 3000

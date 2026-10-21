@@ -1,0 +1,16 @@
+$kind: http-request
+url: "{{baseUrl}}/tenant/business-units/:id"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: business-unit-uuid-here
+body:
+  type: text
+  content: |-
+    {
+      "name": "Sales & Marketing Unit",
+      "isActive": true
+    }
+order: 3000

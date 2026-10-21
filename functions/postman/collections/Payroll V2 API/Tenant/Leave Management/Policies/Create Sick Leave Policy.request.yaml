@@ -1,0 +1,25 @@
+$kind: http-request
+description: Create sick leave policy with medical certificate requirement.
+url: "{{baseUrl}}/tenant/leave/policies"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Sick Leave",
+      "leaveType": "sick",
+      "isPaid": true,
+      "annualAllocation": 10,
+      "carryForwardEnabled": false,
+      "accrualEnabled": false,
+      "requiresDocumentation": true,
+      "documentationThreshold": 3,
+      "allowNegativeBalance": true,
+      "maxNegativeBalance": 5,
+      "proRataEnabled": false,
+      "isActive": true
+    }
+order: 2000

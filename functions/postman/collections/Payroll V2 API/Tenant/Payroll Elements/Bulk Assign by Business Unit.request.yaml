@@ -1,0 +1,24 @@
+$kind: http-request
+description: Assign payroll element to employees in specific business units
+url: "{{baseUrl}}/tenant/payroll-elements/bulk-assign"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "formulaId": "{{formulaId}}",
+      "name": "Business Unit Allowance",
+      "type": "allowance",
+      "assignedAmount": 7500,
+      "isCash": true,
+      "effectiveFrom": "2025-01-01",
+      "description": "Special allowance for business unit",
+      "isRecurring": true,
+      "frequency": "bi-weekly",
+      "assignmentType": "business_unit",
+      "targetIds": ["{{businessUnitId}}"
+    }
+order: 11000

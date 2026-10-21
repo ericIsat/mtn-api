@@ -1,0 +1,25 @@
+$kind: http-request
+description: Get all payroll records with optional filters for month, year, employee, and status
+url: "{{baseUrl}}/tenant/payroll/records?page=1&limit=10"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  - key: page
+    value: "1"
+  - key: limit
+    value: "10"
+  - key: month
+    value: "12"
+    disabled: true
+  - key: year
+    value: "2024"
+    disabled: true
+  - key: employeeId
+    value: "{{employeeId}}"
+    disabled: true
+  - key: status
+    value: processed
+    disabled: true
+    description: "Filter by status: processed, pending, draft"
+order: 1000

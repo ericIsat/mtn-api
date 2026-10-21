@@ -1,0 +1,18 @@
+$kind: http-request
+url: "{{baseUrl}}/tenant/departments/:id"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: department-uuid-here
+body:
+  type: text
+  content: |-
+    {
+      "name": "Human Resources Updated",
+      "code": "HR",
+      "description": "Updated HR Department",
+      "isActive": true
+    }
+order: 3000

@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/tenant/branch-locations/:id"
+method: DELETE
+headers:
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: branch-location-uuid-here
+order: 4000

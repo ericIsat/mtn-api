@@ -1,0 +1,23 @@
+$kind: http-request
+description: Get leave requests with filters. Admin/Reviewer access.
+url: "{{baseUrl}}/tenant/leave/requests"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  - key: employeeId
+    value: "{{employeeId}}"
+    disabled: true
+  - key: policyId
+    value: leave-policy-uuid
+    disabled: true
+  - key: status
+    value: pending
+    disabled: true
+  - key: startDate
+    value: 2025-01-01
+    disabled: true
+  - key: endDate
+    value: 2025-12-31
+    disabled: true
+order: 6000

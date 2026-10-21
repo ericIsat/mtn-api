@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{baseUrl}}/master/subscriptions/dashboard"
+method: GET
+order: 5000

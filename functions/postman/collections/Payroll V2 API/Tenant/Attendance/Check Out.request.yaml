@@ -1,0 +1,20 @@
+$kind: http-request
+description: Employee check-out. Calculates actual work hours, overtime, and early leaving.
+url: "{{baseUrl}}/tenant/attendance/check-out"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "checkOutTime": "2025-01-20T17:30:00Z",
+      "method": "mobile",
+      "location": {
+        "latitude": -1.286389,
+        "longitude": 36.817223,
+        "address": "Nairobi, Kenya"
+      }
+    }
+order: 3000

@@ -1,0 +1,17 @@
+$kind: http-request
+description: "Email payslip to employee with PDF attachment. Available templates: standard, classic, modern, corporate, minimal"
+url: "{{baseUrl}}/payslips/email/:recordId"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  recordId: payroll-record-uuid-here
+body:
+  type: text
+  content: |-
+    {
+      "template": "standard",
+      "email": "employee@example.com"
+    }
+order: 2000

@@ -1,0 +1,13 @@
+$kind: http-request
+description: Test proration calculation for employee who joined mid-month (e.g., December 15th)
+url: "{{baseUrl}}/tenant/payroll/proration/{{employeeId}}?month=12&year=2024"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  - key: month
+    value: "12"
+    description: Test with employee who joined mid-December
+  - key: year
+    value: "2024"
+order: 4000

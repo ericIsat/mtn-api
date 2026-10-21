@@ -1,0 +1,39 @@
+$kind: http-request
+description: Create NSSF with Tier 1 and Tier 2 bands
+url: "{{baseUrl}}/master/formulas"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Kenya NSSF",
+      "formulaType": "Statutory",
+      "country": "Kenya",
+      "calculationType": "Bands",
+      "effectiveFrom": "2024-01-01",
+      "calculatedOn": "Basic Pay",
+      "mode": "monthly",
+      "calculationSequence": "pre-tax",
+      "taxBands": [
+        {
+          "level": 1,
+          "minIncome": 0,
+          "maxIncome": 7000,
+          "taxRate": 6,
+          "fixedAddition": 0,
+          "description": "Tier 1: 6% on 0 - 7,000"
+        },
+        {
+          "level": 2,
+          "minIncome": 7001,
+          "maxIncome": 36000,
+          "taxRate": 6,
+          "fixedAddition": 0,
+          "description": "Tier 2: 6% on 7,001 - 36,000"
+        }
+      ]
+    }
+order: 7000

@@ -1,0 +1,9 @@
+$kind: http-request
+description: Employee cancels their own leave request. Restores balance.
+url: "{{baseUrl}}/tenant/leave/request/:requestId/cancel"
+method: POST
+headers:
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  requestId: leave-request-uuid
+order: 5000

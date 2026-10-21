@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{baseUrl}}/tenant/employee-reliefs/{{employeeReliefId}}"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "proofDocument": "https://files.smartpayday.com/reliefs/updated-policy.pdf"
+    }
+order: 4000

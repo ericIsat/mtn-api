@@ -1,0 +1,12 @@
+$kind: http-request
+description: Get analytics for all payroll elements for last 12 months
+url: "{{baseUrl}}/tenant/payroll-element-analytics?timePeriod=12&month={{currentMonth}}&year={{currentYear}}"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+  Content-Type: application/json
+queryParams:
+  timePeriod: "12"
+  month: "{{currentMonth}}"
+  year: "{{currentYear}}"
+order: 1000

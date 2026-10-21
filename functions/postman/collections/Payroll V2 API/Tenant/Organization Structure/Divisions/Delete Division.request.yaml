@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/tenant/divisions/:id"
+method: DELETE
+headers:
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: division-uuid-here
+order: 4000

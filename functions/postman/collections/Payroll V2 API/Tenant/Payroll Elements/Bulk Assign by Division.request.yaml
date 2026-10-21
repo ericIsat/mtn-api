@@ -1,0 +1,26 @@
+$kind: http-request
+description: Assign payroll element to employees in specific divisions
+url: "{{baseUrl}}/tenant/payroll-elements/bulk-assign"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "formulaId": "{{formulaId}}",
+      "name": "Division Performance Bonus",
+      "type": "allowance",
+      "percentage": 10,
+      "calculatedOn": "basic_pay",
+      "assignedAmount": 5000,
+      "isCash": true,
+      "effectiveFrom": "2025-01-01",
+      "description": "Performance bonus for specific divisions (10% of basic pay, assigned: KES 5,000)",
+      "isRecurring": false,
+      "frequency": "quarterly",
+      "assignmentType": "division",
+      "targetIds": ["{{divisionId}}"
+    }
+order: 10000

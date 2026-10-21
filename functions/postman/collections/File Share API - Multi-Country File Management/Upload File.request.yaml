@@ -1,0 +1,27 @@
+$kind: http-request
+description: |-
+  Upload a new file with country classification.
+
+  Required fields:
+  - file: The file to upload
+  - country: Country name
+
+  Returns: fileId, originalName, fileSize, mimeType, country, uploadedDate
+url: "{{BASE_URL}}/api/files/upload"
+method: POST
+body:
+  type: formdata
+  content:
+    - type: file
+      key: file
+      src: []
+      description: File to upload (required)
+    - type: text
+      key: country
+      value: "{{COUNTRY}}"
+      description: Country classification (required) - e.g., Zambia, South Sudan, Kenya, Uganda
+    - type: text
+      key: uploadedBy
+      value: admin
+      description: Uploader identifier (optional, defaults to 'admin')
+order: 2000

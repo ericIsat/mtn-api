@@ -1,0 +1,19 @@
+$kind: http-request
+url: "{{baseUrl}}/master/statutories"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Kenya PAYE",
+      "country": "Kenya",
+      "type": "PAYE",
+      "description": "Pay As You Earn tax deduction",
+      "formulaId": "{{formulaId}}",
+      "isActive": true,
+      "effectiveFrom": "2024-01-01"
+    }
+order: 1000

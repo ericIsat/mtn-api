@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{baseUrl}}/master/requests/:id"
+method: GET
+pathVariables:
+  id: "{{requestId}}"
+order: 3000

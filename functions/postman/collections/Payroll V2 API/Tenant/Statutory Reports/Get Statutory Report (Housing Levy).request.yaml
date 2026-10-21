@@ -1,0 +1,13 @@
+$kind: http-request
+description: Get Housing Levy statutory report
+url: "{{baseUrl}}/tenant/reports/statutory?statutoryName=Housing Levy&month=12&year=2024&page=1&limit=10"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  statutoryName: Housing Levy
+  month: "12"
+  year: "2024"
+  page: "1"
+  limit: "10"
+order: 3000

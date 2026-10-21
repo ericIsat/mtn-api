@@ -1,0 +1,15 @@
+$kind: http-request
+description: Email payslips to multiple employees at once
+url: "{{baseUrl}}/payslips/bulk-email"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "recordIds": ["record-uuid-1", "record-uuid-2"],
+      "template": "standard"
+    }
+order: 3000

@@ -1,0 +1,18 @@
+$kind: http-request
+description: Test payroll calculation for tax-exempt employee (should skip PAYE but include other statutories)
+url: "{{baseUrl}}/tenant/payroll/calculate"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "month": 12,
+      "year": 2024,
+      "employeeIds": ["{{employeeId}}"],
+      "includeCalculationBreakdown": true,
+      "testScenario": "tax_exempt"
+    }
+order: 11000

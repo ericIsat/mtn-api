@@ -1,0 +1,14 @@
+$kind: http-request
+description: Get variance report for all business unit cost centers
+url: "{{baseUrl}}/tenant/cost-centers/reports/variance?startMonth={{startMonth}}&startYear={{startYear}}&endMonth={{endMonth}}&endYear={{endYear}}&entityType=business_unit"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+  Content-Type: application/json
+queryParams:
+  startMonth: "{{startMonth}}"
+  startYear: "{{startYear}}"
+  endMonth: "{{endMonth}}"
+  endYear: "{{endYear}}"
+  entityType: business_unit
+order: 5000

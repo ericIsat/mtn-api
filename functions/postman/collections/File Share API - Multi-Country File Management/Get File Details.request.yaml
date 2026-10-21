@@ -1,0 +1,11 @@
+$kind: http-request
+description: |-
+  Get metadata for a specific file by fileId
+
+  Path Parameters:
+  - FILE_ID: The unique file identifier (from upload response or file list)
+
+  Returns: File metadata including fileId, originalName, fileSize, mimeType, uploadedBy, country, uploadedDate, status
+url: "{{BASE_URL}}/api/files/{{FILE_ID}}"
+method: GET
+order: 5000

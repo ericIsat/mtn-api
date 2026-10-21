@@ -1,0 +1,15 @@
+$kind: http-request
+description: Admin approves or rejects regularization request.
+url: "{{baseUrl}}/tenant/attendance/regularization/approve"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "recordId": "attendance-record-uuid",
+      "approved": true
+    }
+order: 6000

@@ -1,0 +1,15 @@
+$kind: http-request
+description: Upload profile photo to S3. Accepts JPG/PNG files up to 5MB. Returns S3 URL.
+url: "{{baseUrl}}/tenant/employees/{{employeeId}}/profile-photo"
+method: POST
+headers:
+  Authorization: Bearer {{accessToken}}
+body:
+  type: formdata
+  content:
+    - type: file
+      key: photo
+      src:
+        - /C:/Users/Admin/Pictures/profile.jpg
+      description: Employee profile photo (JPG, PNG, max 5MB)
+order: 7000

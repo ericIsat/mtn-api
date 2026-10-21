@@ -1,0 +1,10 @@
+$kind: http-request
+description: Calculate payroll elements (allowances, benefits, deductions, contributions) for a specific employee with taxable income determination
+url: "{{baseUrl}}/tenant/payroll/elements/{{employeeId}}?month=12&year=2024"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  month: "12"
+  year: "2024"
+order: 6000

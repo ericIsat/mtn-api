@@ -1,0 +1,18 @@
+$kind: http-request
+url: "{{baseUrl}}/master/tenants?page=1&limit=10"
+method: GET
+queryParams:
+  - key: page
+    value: "1"
+  - key: limit
+    value: "10"
+  - key: isActive
+    value: "true"
+    disabled: true
+  - key: status
+    value: trial
+    disabled: true
+  - key: search
+    value: acme
+    disabled: true
+order: 1000

@@ -1,0 +1,21 @@
+$kind: http-request
+description: Get NSSF statutory report with employee contributions including pensionable contributions, amounts fitting in cap, and excess taxable amounts
+url: "{{baseUrl}}/tenant/reports/statutory?statutoryName=NSSF&month=12&year=2024&page=1&limit=10"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  - key: statutoryName
+    value: NSSF
+    description: Statutory name (e.g., NSSF, SHIF, Housing Levy, NHIF)
+  - key: month
+    value: "12"
+    description: Payroll month (1-12)
+  - key: year
+    value: "2024"
+    description: Payroll year
+  - key: page
+    value: "1"
+  - key: limit
+    value: "10"
+order: 1000

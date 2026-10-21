@@ -1,0 +1,16 @@
+$kind: http-request
+url: "{{baseUrl}}/tenant/branch-locations/:id"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: branch-location-uuid-here
+body:
+  type: text
+  content: |-
+    {
+      "name": "Nairobi Main Branch",
+      "isActive": true
+    }
+order: 3000

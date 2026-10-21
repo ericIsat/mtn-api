@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{baseUrl}}/master/mfa/verify-email"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "emailMfaToken": "jwt_email_mfa_token",
+      "code": "123456"
+    }
+order: 5000

@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/master/subscriptions"
+method: GET
+queryParams:
+  - key: status
+    value: live
+    disabled: true
+order: 1000

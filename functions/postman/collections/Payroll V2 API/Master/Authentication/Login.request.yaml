@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{baseUrl}}/master/auth/login"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "email": "admin@smartpayday.africa",
+      "password": "Sm@rt2025"
+    }
+order: 2000

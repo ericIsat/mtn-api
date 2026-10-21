@@ -1,0 +1,18 @@
+$kind: http-request
+description: Employee submits leave request. Auto-calculates working days (excludes weekends). Validates balance and policy rules.
+url: "{{baseUrl}}/tenant/leave/request"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "policyId": "leave-policy-uuid",
+      "startDate": "2025-02-10",
+      "endDate": "2025-02-14",
+      "reason": "Family vacation",
+      "documentationUrl": "https://s3.amazonaws.com/docs/leave-doc.pdf"
+    }
+order: 2000

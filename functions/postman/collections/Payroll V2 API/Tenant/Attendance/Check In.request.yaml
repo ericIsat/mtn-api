@@ -1,0 +1,20 @@
+$kind: http-request
+description: Employee check-in with location tracking. Auto-detects late coming based on policy grace period.
+url: "{{baseUrl}}/tenant/attendance/check-in"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "checkInTime": "2025-01-20T08:30:00Z",
+      "method": "mobile",
+      "location": {
+        "latitude": -1.286389,
+        "longitude": 36.817223,
+        "address": "Nairobi, Kenya"
+      }
+    }
+order: 2000

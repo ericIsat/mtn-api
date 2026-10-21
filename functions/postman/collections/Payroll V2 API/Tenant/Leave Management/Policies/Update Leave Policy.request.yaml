@@ -1,0 +1,19 @@
+$kind: http-request
+description: Update leave policy.
+url: "{{baseUrl}}/tenant/leave/policies/:id"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: policy-uuid
+body:
+  type: text
+  content: |-
+    {
+      "name": "Updated Annual Leave",
+      "annualAllocation": 25,
+      "maxCarryForward": 7,
+      "isActive": true
+    }
+order: 5000

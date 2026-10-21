@@ -1,0 +1,7 @@
+$kind: http-request
+description: Download comprehensive Excel template with multiple sheets for complete organization setup including departments, divisions, business units, branch locations, employee types, tax payer categories, and employees.
+url: "{{baseUrl}}/tenant/employees/organization-setup-template"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+order: 10000

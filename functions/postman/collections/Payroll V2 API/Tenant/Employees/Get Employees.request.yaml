@@ -1,0 +1,23 @@
+$kind: http-request
+url: "{{baseUrl}}/tenant/employees?page=1&limit=10"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  - key: page
+    value: "1"
+  - key: limit
+    value: "10"
+  - key: search
+    value: john
+    disabled: true
+  - key: status
+    value: active
+    disabled: true
+  - key: departmentId
+    value: department-uuid-here
+    disabled: true
+  - key: employeeTypeId
+    value: employee-type-uuid-here
+    disabled: true
+order: 3000

@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/tenant/employee-reliefs"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "employeeId": "{{employeeId}}",
+      "reliefId": "{{reliefId}}",
+      "proofDocument": "https://files.smartpayday.com/reliefs/policy.pdf"
+    }
+order: 1000

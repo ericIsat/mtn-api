@@ -1,0 +1,11 @@
+$kind: http-request
+description: Download sample CSV/Excel file with required columns and example data for bulk import.
+url: "{{baseUrl}}/tenant/employees/sample-file?format=csv"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  - key: format
+    value: csv
+    description: "File format: csv or excel"
+order: 9000

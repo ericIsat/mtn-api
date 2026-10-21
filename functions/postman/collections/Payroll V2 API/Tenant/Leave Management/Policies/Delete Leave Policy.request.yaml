@@ -1,0 +1,9 @@
+$kind: http-request
+description: Delete leave policy.
+url: "{{baseUrl}}/tenant/leave/policies/:id"
+method: DELETE
+headers:
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: policy-uuid
+order: 6000

@@ -1,0 +1,15 @@
+$kind: http-request
+description: Start domain setup process. Returns all DNS records (verification, DKIM, SPF, DMARC) to add to DNS provider.
+url: "{{baseUrl}}/tenant/email-setup/initiate"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "emailDomain": "company.com",
+      "fromEmail": "payroll@company.com"
+    }
+order: 1000

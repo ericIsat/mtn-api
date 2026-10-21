@@ -1,0 +1,10 @@
+$kind: http-request
+description: "Get monthly attendance summary: present, absent, half-day, leave, total work hours, overtime, late comings."
+url: "{{baseUrl}}/tenant/attendance/summary/{{employeeId}}?month=1&year=2025"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  month: "1"
+  year: "2025"
+order: 7000

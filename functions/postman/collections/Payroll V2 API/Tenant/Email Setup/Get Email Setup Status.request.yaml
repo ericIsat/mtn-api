@@ -1,0 +1,7 @@
+$kind: http-request
+description: Get current email setup status including domain, DKIM, SPF, and DMARC verification status.
+url: "{{baseUrl}}/tenant/email-setup/status"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+order: 6000

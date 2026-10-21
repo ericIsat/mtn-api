@@ -1,0 +1,32 @@
+$kind: http-request
+url: "{{baseUrl}}/master/agent-tenants"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "companyName": "Client Corp Ltd",
+      "companyEmail": "admin@clientcorp.com",
+      "companyPhone": "+254700987654",
+      "industryType": "Manufacturing",
+      "companyAddress": {
+        "street": "456 Industrial Road",
+        "city": "Nairobi",
+        "state": "Nairobi County",
+        "zip": "00200",
+        "country": "Kenya"
+      },
+      "contactPersons": [
+        {
+          "firstName": "Jane",
+          "lastName": "Smith",
+          "email": "jane.smith@clientcorp.com",
+          "phone": "+254700987654",
+          "position": "Managing Director"
+        }
+      ]
+    }
+order: 1000

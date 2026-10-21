@@ -1,0 +1,14 @@
+$kind: http-request
+description: Get all leave policies with optional filters.
+url: "{{baseUrl}}/tenant/leave/policies"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  - key: isActive
+    value: "true"
+    disabled: true
+  - key: leaveType
+    value: annual
+    disabled: true
+order: 4000

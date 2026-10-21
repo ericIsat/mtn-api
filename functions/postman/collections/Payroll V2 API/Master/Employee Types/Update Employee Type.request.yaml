@@ -1,0 +1,19 @@
+$kind: http-request
+description: Update employee type (SmartPayday Admin only)
+url: "{{baseUrl}}/master/employee-types/:id"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: employee-type-uuid-here
+body:
+  type: text
+  content: |-
+    {
+      "name": "Senior Software Developer",
+      "description": "Senior software developers with 5+ years experience in full-stack development",
+      "statutoryIds": ["statutory-uuid-1", "statutory-uuid-2"],
+      "isActive": true
+    }
+order: 3000

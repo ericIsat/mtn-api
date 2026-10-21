@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/tenant/branch-locations"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Nairobi Branch",
+      "code": "NRB",
+      "description": "Main branch located in Nairobi CBD"
+    }
+order: 1000

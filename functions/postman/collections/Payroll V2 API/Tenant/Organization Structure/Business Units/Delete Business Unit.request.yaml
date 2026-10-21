@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/tenant/business-units/:id"
+method: DELETE
+headers:
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: business-unit-uuid-here
+order: 4000

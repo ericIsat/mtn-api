@@ -1,0 +1,19 @@
+$kind: http-request
+description: Process casual worker payment. Calculates gross amount (rate × unitsWorked), checks YTD threshold (KES 24,000), applies tax if exceeded.
+url: "{{baseUrl}}/tenant/casual-payments/process"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "employeeId": "{{employeeId}}",
+      "paymentDate": "2025-02-01",
+      "periodStart": "2025-01-25",
+      "periodEnd": "2025-01-31",
+      "unitsWorked": 5,
+      "notes": "Week 4 payment"
+    }
+order: 1000

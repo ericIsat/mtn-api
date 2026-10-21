@@ -1,0 +1,16 @@
+$kind: http-request
+url: "{{baseUrl}}/tenant/divisions/:id"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: division-uuid-here
+body:
+  type: text
+  content: |-
+    {
+      "name": "Operations Division Updated",
+      "isActive": true
+    }
+order: 3000

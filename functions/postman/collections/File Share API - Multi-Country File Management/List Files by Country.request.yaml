@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Retrieve files filtered by country
+
+  Query Parameters:
+  - country: Country name to filter by (e.g., Zambia, South Sudan)
+
+  Returns: Array of files matching the country filter
+url: "{{BASE_URL}}/api/files?country={{COUNTRY}}"
+method: GET
+queryParams:
+  - key: country
+    value: "{{COUNTRY}}"
+    description: Country filter - returns only files for this country
+order: 4000

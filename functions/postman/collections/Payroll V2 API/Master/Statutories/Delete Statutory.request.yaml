@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/master/statutories/:id"
+method: DELETE
+headers:
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: statutory-uuid-here
+order: 5000

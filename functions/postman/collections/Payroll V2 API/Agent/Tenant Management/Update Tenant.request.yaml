@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/master/agent-tenants/{{tenantId}}"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Updated Client Corp Ltd",
+      "industry": "Technology & Manufacturing",
+      "isActive": true
+    }
+order: 4000

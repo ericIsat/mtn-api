@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{baseUrl}}/master/tenants/:id"
+method: GET
+pathVariables:
+  id: "{{tenantId}}"
+order: 2000

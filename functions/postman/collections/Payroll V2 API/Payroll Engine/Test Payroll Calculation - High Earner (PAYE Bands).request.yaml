@@ -1,0 +1,18 @@
+$kind: http-request
+description: Test payroll calculation for high earner to verify progressive tax band calculations (PAYE, NSSF tiers)
+url: "{{baseUrl}}/tenant/payroll/calculate"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "month": 12,
+      "year": 2024,
+      "employeeIds": ["{{employeeId}}"],
+      "includeCalculationBreakdown": true,
+      "testScenario": "high_earner"
+    }
+order: 10000

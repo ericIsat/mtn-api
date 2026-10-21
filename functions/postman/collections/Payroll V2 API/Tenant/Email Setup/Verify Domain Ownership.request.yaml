@@ -1,0 +1,7 @@
+$kind: http-request
+description: Verify domain ownership by checking DNS TXT record. Add _smartpayday.company.com TXT record with verification token from initiate endpoint.
+url: "{{baseUrl}}/tenant/email-setup/verify-domain"
+method: POST
+headers:
+  Authorization: Bearer {{accessToken}}
+order: 2000

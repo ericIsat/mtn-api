@@ -1,0 +1,7 @@
+$kind: http-request
+description: "Verify SPF record. Add company.com TXT record: v=spf1 include:smartpayday.com ~all"
+url: "{{baseUrl}}/tenant/email-setup/verify-spf"
+method: POST
+headers:
+  Authorization: Bearer {{accessToken}}
+order: 4000

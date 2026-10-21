@@ -1,0 +1,17 @@
+$kind: http-request
+url: "{{baseUrl}}/master/reliefs/{{reliefId}}"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Insurance Relief",
+      "monthlyLimit": 4500,
+      "annualLimit": 54000,
+      "isActive": true,
+      "description": "Updated insurance relief parameters"
+    }
+order: 4000

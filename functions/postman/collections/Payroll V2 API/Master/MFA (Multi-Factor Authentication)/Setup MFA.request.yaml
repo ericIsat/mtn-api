@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{baseUrl}}/master/mfa/setup"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: "{}"
+order: 1000

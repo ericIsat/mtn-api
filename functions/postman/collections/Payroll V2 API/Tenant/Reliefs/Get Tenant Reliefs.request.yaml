@@ -1,0 +1,21 @@
+$kind: http-request
+description: Get available reliefs in tenant database for attaching to employees
+url: "{{baseUrl}}/tenant/reliefs?page=1&limit=10"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  - key: page
+    value: "1"
+  - key: limit
+    value: "10"
+  - key: reliefType
+    value: Insurance
+    disabled: true
+  - key: country
+    value: Kenya
+    disabled: true
+  - key: isActive
+    value: "true"
+    disabled: true
+order: 1000

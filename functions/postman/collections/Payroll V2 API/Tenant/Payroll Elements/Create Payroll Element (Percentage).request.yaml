@@ -1,0 +1,23 @@
+$kind: http-request
+description: Create a percentage-based payroll element
+url: "{{baseUrl}}/tenant/payroll-elements"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "employeeId": "{{employeeId}}",
+      "formulaId": "{{formulaId}}",
+      "name": "Performance Bonus",
+      "type": "benefit",
+      "percentage": 10,
+      "assignedAmount": 5000,
+      "isCash": true,
+      "effectiveFrom": "2024-01-01",
+      "description": "10% performance bonus on basic pay (assigned amount: KES 5,000)",
+      "isRecurring": false
+    }
+order: 2000

@@ -1,0 +1,10 @@
+$kind: http-request
+description: Calculate proration for a specific employee based on joining date, contract dates, and exit date
+url: "{{baseUrl}}/tenant/payroll/proration/{{employeeId}}?month=12&year=2024"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  month: "12"
+  year: "2024"
+order: 3000

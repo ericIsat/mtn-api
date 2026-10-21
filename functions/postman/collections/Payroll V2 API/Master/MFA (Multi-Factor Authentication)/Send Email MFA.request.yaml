@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{baseUrl}}/master/mfa/send-email"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: "{}"
+order: 4000

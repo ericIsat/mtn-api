@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{baseUrl}}/master/tenant-user-invitation/invite"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "email": "user@example.com",
+      "role": "tenant_admin"
+    }
+order: 1000

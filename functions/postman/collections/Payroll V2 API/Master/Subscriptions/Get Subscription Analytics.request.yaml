@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{baseUrl}}/master/subscriptions/analytics"
+method: GET
+order: 4000

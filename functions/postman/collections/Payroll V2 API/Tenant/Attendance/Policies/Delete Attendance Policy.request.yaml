@@ -1,0 +1,9 @@
+$kind: http-request
+description: Delete attendance policy.
+url: "{{baseUrl}}/tenant/attendance/policies/:id"
+method: DELETE
+headers:
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: policy-uuid
+order: 4000

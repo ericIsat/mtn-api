@@ -1,0 +1,17 @@
+$kind: http-request
+url: "{{baseUrl}}/master/employee-classifications/:id"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: employee-classification-uuid-here
+body:
+  type: text
+  content: |-
+    {
+      "name": "Secondary Employee",
+      "description": "Secondary employee classification",
+      "isActive": true
+    }
+order: 3000

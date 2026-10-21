@@ -1,0 +1,23 @@
+$kind: http-request
+description: Assign payroll element to all active employees
+url: "{{baseUrl}}/tenant/payroll-elements/bulk-assign"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "formulaId": "{{formulaId}}",
+      "name": "Company Bonus",
+      "type": "allowance",
+      "assignedAmount": 10000,
+      "isCash": true,
+      "effectiveFrom": "2025-01-01",
+      "description": "Annual company bonus for all employees",
+      "isRecurring": false,
+      "frequency": "annual",
+      "assignmentType": "all"
+    }
+order: 7000

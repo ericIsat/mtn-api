@@ -1,0 +1,24 @@
+$kind: http-request
+description: Create loan deduction that reduces net pay but doesn't affect taxable income
+url: "{{baseUrl}}/tenant/payroll-elements"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "employeeId": "{{employeeId}}",
+      "formulaId": "{{formulaId}}",
+      "name": "Staff Loan Repayment",
+      "type": "deduction",
+      "assignedAmount": 5000,
+      "isCash": true,
+      "effectiveFrom": "2024-01-01",
+      "effectiveTo": "2024-12-31",
+      "description": "Monthly loan repayment deduction",
+      "isRecurring": true,
+      "frequency": "monthly"
+    }
+order: 14000

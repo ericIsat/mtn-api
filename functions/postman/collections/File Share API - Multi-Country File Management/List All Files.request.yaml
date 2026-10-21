@@ -1,0 +1,8 @@
+$kind: http-request
+description: |-
+  Retrieve all uploaded files with their metadata
+
+  Returns: Array of file objects with fileId, originalName, fileSize, mimeType, uploadedBy, country, uploadedDate, status
+url: "{{BASE_URL}}/api/files"
+method: GET
+order: 3000

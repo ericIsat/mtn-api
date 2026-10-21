@@ -1,0 +1,15 @@
+$kind: http-request
+description: Bulk import employees from CSV or Excel file. Returns success/failure count with error details.
+url: "{{baseUrl}}/tenant/employees/bulk-import"
+method: POST
+headers:
+  Authorization: Bearer {{accessToken}}
+body:
+  type: formdata
+  content:
+    - type: file
+      key: file
+      src:
+        - /C:/Users/Admin/Documents/SmartPayday/employee_sample.csv
+      description: CSV or Excel file with employee data (max 10MB)
+order: 8000

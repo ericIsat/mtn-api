@@ -1,0 +1,16 @@
+$kind: http-request
+description: Admin/HR approves leave request. Moves days from pending to used balance.
+url: "{{baseUrl}}/tenant/leave/request/:requestId/approve"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  requestId: leave-request-uuid
+body:
+  type: text
+  content: |-
+    {
+      "comments": "Approved for annual leave"
+    }
+order: 3000

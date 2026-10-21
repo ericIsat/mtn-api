@@ -1,0 +1,17 @@
+$kind: http-request
+url: "{{baseUrl}}/master/requests/:id"
+method: PUT
+headers:
+  Content-Type: application/json
+pathVariables:
+  id: "{{requestId}}"
+body:
+  type: text
+  content: |-
+    {
+      "companyName": "ACME Corporation Updated",
+      "companyEmail": "admin@acme.com",
+      "companyPhone": "+1-555-0123",
+      "industryType": "Technology & Innovation"
+    }
+order: 4000

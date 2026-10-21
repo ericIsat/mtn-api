@@ -1,0 +1,24 @@
+$kind: http-request
+description: Create a payroll element to assign a formula to an employee with specific amount and dates
+url: "{{baseUrl}}/tenant/payroll-elements"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "employeeId": "{{employeeId}}",
+      "formulaId": "{{formulaId}}",
+      "name": "Transport Allowance",
+      "type": "allowance",
+      "assignedAmount": 5000,
+      "isCash": true,
+      "effectiveFrom": "2024-01-01",
+      "effectiveTo": "2024-12-31",
+      "description": "Monthly transport allowance",
+      "isRecurring": true,
+      "frequency": "monthly"
+    }
+order: 1000

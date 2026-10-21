@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/master/tax-payer-categories/:id"
+method: DELETE
+headers:
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: tax-payer-category-uuid-here
+order: 4000

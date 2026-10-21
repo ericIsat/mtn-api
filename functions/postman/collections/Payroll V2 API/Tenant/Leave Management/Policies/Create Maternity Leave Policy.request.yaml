@@ -1,0 +1,26 @@
+$kind: http-request
+description: Create maternity leave policy (90 days).
+url: "{{baseUrl}}/tenant/leave/policies"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Maternity Leave",
+      "leaveType": "maternity",
+      "isPaid": true,
+      "annualAllocation": 90,
+      "carryForwardEnabled": false,
+      "accrualEnabled": false,
+      "maxConsecutiveDays": 90,
+      "minNoticeDays": 30,
+      "requiresDocumentation": true,
+      "documentationThreshold": 1,
+      "allowNegativeBalance": false,
+      "proRataEnabled": false,
+      "isActive": true
+    }
+order: 3000

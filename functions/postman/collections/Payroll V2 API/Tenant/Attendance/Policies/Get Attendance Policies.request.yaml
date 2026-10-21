@@ -1,0 +1,11 @@
+$kind: http-request
+description: Get all attendance policies.
+url: "{{baseUrl}}/tenant/attendance/policies"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  - key: isActive
+    value: "true"
+    disabled: true
+order: 2000

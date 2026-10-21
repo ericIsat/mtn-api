@@ -1,0 +1,9 @@
+$kind: http-request
+description: Get year-to-date summary for casual worker including total gross, tax, statutory deductions, and net pay. Shows if tax threshold (KES 24,000) has been reached.
+url: "{{baseUrl}}/tenant/casual-payments/ytd/{{employeeId}}?year=2025"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  year: "2025"
+order: 3000

@@ -1,0 +1,18 @@
+$kind: http-request
+description: Get payroll summary with totals for basic pay, allowances, benefits, deductions, statutory deductions, and net pay
+url: "{{baseUrl}}/tenant/payroll/summary?month=12&year=2024"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  - key: month
+    value: "12"
+  - key: year
+    value: "2024"
+  - key: departmentId
+    value: "{{departmentId}}"
+    disabled: true
+  - key: employeeTypeId
+    value: "{{employeeTypeId}}"
+    disabled: true
+order: 9000

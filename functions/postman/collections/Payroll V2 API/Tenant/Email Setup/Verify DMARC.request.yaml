@@ -1,0 +1,7 @@
+$kind: http-request
+description: "Verify DMARC record. Add _dmarc.company.com TXT record: v=DMARC1; p=quarantine; rua=mailto:dmarc@smartpayday.com"
+url: "{{baseUrl}}/tenant/email-setup/verify-dmarc"
+method: POST
+headers:
+  Authorization: Bearer {{accessToken}}
+order: 5000

@@ -1,0 +1,15 @@
+$kind: http-request
+description: Process payroll for all active employees in the specified month
+url: "{{baseUrl}}/tenant/payroll/process"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "month": 12,
+      "year": 2024
+    }
+order: 1000

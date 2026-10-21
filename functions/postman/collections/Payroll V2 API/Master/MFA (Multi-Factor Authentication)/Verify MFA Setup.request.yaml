@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{baseUrl}}/master/mfa/verify-setup"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "token": "123456"
+    }
+order: 2000

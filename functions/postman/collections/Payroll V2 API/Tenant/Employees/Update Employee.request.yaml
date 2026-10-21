@@ -1,0 +1,20 @@
+$kind: http-request
+description: Update employee information including organizational assignments
+url: "{{baseUrl}}/tenant/employees/{{employeeId}}"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "firstName": "John Updated",
+      "jobTitle": "Senior Software Developer",
+      "basicPay": 60000.00,
+      "status": "active",
+      "departmentId": "{{departmentId}}",
+      "divisionId": "{{divisionId}}",
+      "employeeClassificationId": "{{employeeClassificationId}}"
+    }
+order: 5000

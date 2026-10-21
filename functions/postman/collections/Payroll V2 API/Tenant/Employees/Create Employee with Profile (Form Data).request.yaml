@@ -1,0 +1,133 @@
+$kind: http-request
+description: Create employee using form data. Useful when you need to handle file uploads in the future.
+url: "{{baseUrl}}/tenant/employees"
+method: POST
+headers:
+  Authorization: Bearer {{accessToken}}
+body:
+  type: formdata
+  content:
+    - type: text
+      key: staffNo
+      value: EMP002
+    - type: text
+      key: firstName
+      value: Jane
+    - type: text
+      key: lastName
+      value: Smith
+    - type: text
+      key: otherNames
+      value: Marie
+    - type: text
+      key: email
+      value: jane.smith@company.com
+    - type: text
+      key: phone
+      value: "+254700654321"
+    - type: text
+      key: gender
+      value: Female
+    - type: text
+      key: nationality
+      value: Kenyan
+    - type: text
+      key: nationalId
+      value: "87654321"
+    - type: text
+      key: dob
+      value: 1992-05-20
+    - type: text
+      key: joiningDate
+      value: 2024-01-15
+    - type: text
+      key: status
+      value: active
+    - type: text
+      key: basicPay
+      value: "45000.00"
+    - type: text
+      key: paymentCurrency
+      value: KES
+    - type: text
+      key: isTaxExempted
+      value: "false"
+    - type: text
+      key: jobTitle
+      value: UI/UX Designer
+    - type: text
+      key: employeeTypeId
+      value: "{{employeeTypeId}}"
+    - type: text
+      key: taxPayerCategoryId
+      value: "{{taxPayerCategoryId}}"
+    - type: text
+      key: employeeClassificationId
+      value: "{{employeeClassificationId}}"
+    - type: text
+      key: departmentId
+      value: "{{departmentId}}"
+    - type: text
+      key: divisionId
+      value: "{{divisionId}}"
+    - type: text
+      key: businessUnitId
+      value: "{{businessUnitId}}"
+    - type: text
+      key: branchLocationId
+      value: "{{branchLocationId}}"
+    - type: text
+      key: accountNumber
+      value: "0987654321"
+    - type: text
+      key: bankName
+      value: Equity Bank
+    - type: text
+      key: branchName
+      value: Westlands Branch
+    - type: text
+      key: sortCode
+      value: "68000"
+    - type: text
+      key: contactPerson[name]
+      value: Sarah Smith
+    - type: text
+      key: contactPerson[relationship]
+      value: Sister
+    - type: text
+      key: contactPerson[phone]
+      value: "+254700111222"
+    - type: text
+      key: contactPerson[email]
+      value: sarah.smith@gmail.com
+    - type: text
+      key: contactPerson[address]
+      value: 456 Oak Avenue, Nairobi
+    - type: text
+      key: contactPerson[isEmergencyContact]
+      value: "true"
+    - type: text
+      key: contractDetails[contractType]
+      value: permanent
+    - type: text
+      key: contractDetails[startDate]
+      value: 2024-01-15
+    - type: text
+      key: contractDetails[probationPeriod]
+      value: "3"
+    - type: text
+      key: contractDetails[noticePeriod]
+      value: "30"
+    - type: text
+      key: contractDetails[workingHours]
+      value: "8"
+    - type: text
+      key: contractDetails[workingDays]
+      value: "5"
+    - type: file
+      key: profilePhoto
+      src:
+        - /C:/Users/Admin/Pictures/employee-photo.jpg
+      description: Employee profile photo (JPG, PNG, max 5MB) - Optional
+      disabled: true
+order: 2000

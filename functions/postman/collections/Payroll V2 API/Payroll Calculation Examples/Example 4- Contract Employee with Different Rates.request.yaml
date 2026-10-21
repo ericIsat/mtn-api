@@ -1,0 +1,18 @@
+$kind: http-request
+name: "Example 4: Contract Employee with Different Rates"
+description: Example for contract employee with different basic pay rates during the month (e.g., KES 40,000 for 15 days, KES 50,000 for 16 days)
+url: "{{baseUrl}}/tenant/payroll/calculate"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "month": 12,
+      "year": 2024,
+      "employeeIds": ["{{employeeId}}"],
+      "includeCalculationBreakdown": true
+    }
+order: 4000

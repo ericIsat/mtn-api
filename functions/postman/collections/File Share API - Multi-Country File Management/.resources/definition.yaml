@@ -1,0 +1,7 @@
+$kind: collection
+description: Complete API collection for File Share API - Upload, list, and download files organized by country
+variables:
+  BASE_URL: https://secure-data-bridge-942310354.catalystserverless.com/server/file_management_function
+  LOCAL_URL: http://localhost:3000/server/file_management_function
+  FILE_ID: ""
+  COUNTRY: Zambia

@@ -1,0 +1,23 @@
+$kind: http-request
+description: Create non-cash benefit that won't be included in taxable income calculations
+url: "{{baseUrl}}/tenant/payroll-elements"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "employeeId": "{{employeeId}}",
+      "formulaId": "{{formulaId}}",
+      "name": "Company Car",
+      "type": "benefit",
+      "assignedAmount": 25000,
+      "isCash": false,
+      "effectiveFrom": "2024-01-01",
+      "description": "Company car benefit (non-taxable)",
+      "isRecurring": true,
+      "frequency": "monthly"
+    }
+order: 13000

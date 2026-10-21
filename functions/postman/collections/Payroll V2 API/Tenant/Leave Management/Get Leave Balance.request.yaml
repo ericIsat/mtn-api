@@ -1,0 +1,9 @@
+$kind: http-request
+description: Get employee leave balance by year. Shows allocated, used, pending, available, and carried forward days per policy.
+url: "{{baseUrl}}/tenant/leave/balance/{{employeeId}}?year=2025"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  year: "2025"
+order: 7000

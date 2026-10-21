@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{baseUrl}}/master/tenants/:id"
+method: DELETE
+pathVariables:
+  id: "{{tenantId}}"
+order: 4000

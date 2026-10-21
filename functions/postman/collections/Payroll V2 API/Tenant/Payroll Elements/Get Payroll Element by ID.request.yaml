@@ -1,0 +1,7 @@
+$kind: http-request
+description: Get specific payroll element details
+url: "{{baseUrl}}/tenant/payroll-elements/{{payrollElementId}}"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+order: 4000

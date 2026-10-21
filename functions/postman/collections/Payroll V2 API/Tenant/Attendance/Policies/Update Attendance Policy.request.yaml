@@ -1,0 +1,18 @@
+$kind: http-request
+description: Update attendance policy.
+url: "{{baseUrl}}/tenant/attendance/policies/:id"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: policy-uuid
+body:
+  type: text
+  content: |-
+    {
+      "name": "Updated Office Hours",
+      "gracePeriodMinutes": 30,
+      "isActive": true
+    }
+order: 3000

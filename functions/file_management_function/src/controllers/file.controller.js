@@ -64,7 +64,7 @@ const uploadFile = async (req, res) => {
     console.log(`⏳ Uploading file to Stratus bucket: api-mtn...`);
     const stratus = new Stratus(catalystApp);
     const bucket = stratus.bucket('api-mtn');
-    const objectKey = `mtn-zambia/${fileId}`;
+    const objectKey = `${country.toLowerCase().replace(/\s+/g, '-')}/${fileId}`;
 
     const uploadOptions = {
       overwrite: true,
@@ -154,13 +154,32 @@ const downloadFile = async (req, res) => {
     const rawMetadata = results[0];
     const fileMetadata = rawMetadata.SharedFiles || rawMetadata;
     console.log(`✓ Found file: ${fileMetadata.originalName}`);
+    console.log(`✓ File country: ${fileMetadata.country}`);
+
+    if (!fileMetadata.country) {
+      console.error('❌ File has no country classification');
+      return res.status(400).json({
+        success: false,
+        message: 'File has no country classification'
+      });
+    }
 
     console.log(`⏳ Downloading file from Stratus bucket: api-mtn...`);
     const stratus = new Stratus(catalystApp);
     const bucket = stratus.bucket('api-mtn');
-    const objectKey = `mtn-zambia/${fileId}`;
 
-    const fileStream = await bucket.getObject(objectKey);
+    // Try dynamic path first, then fallback to legacy mtn-zambia path
+    let objectKey = `${fileMetadata.country.toLowerCase().replace(/\s+/g, '-')}/${fileId}`;
+    console.log(`⏳ Trying path: ${objectKey}`);
+
+    let fileStream;
+    try {
+      fileStream = await bucket.getObject(objectKey);
+    } catch (err) {
+      console.log(`⚠️ Path not found, trying legacy path: mtn-zambia/${fileId}`);
+      objectKey = `mtn-zambia/${fileId}`;
+      fileStream = await bucket.getObject(objectKey);
+    }
     console.log(`✓ File stream retrieved from Stratus`);
 
     // Set response headers
@@ -206,6 +225,8 @@ const downloadFile = async (req, res) => {
 // List all files from DataStore metadata
 const listFiles = async (req, res) => {
   console.log('\n========== LIST FILES START ==========');
+  console.log('✓ listFiles function called');
+  console.log('Request query:', req.query);
 
   try {
     console.log('✓ Initializing Catalyst...');

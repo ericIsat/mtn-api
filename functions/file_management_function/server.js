@@ -6,12 +6,22 @@ const app = express();
 
 // Minimal middleware
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Import routes
 const fileRoutes = require('./src/routes/file.routes');
 
+// Debug all requests
+app.use((req, res, next) => {
+  console.log(`\n🔍 REQUEST: ${req.method} ${req.path}`);
+  console.log(`   Full URL: ${req.originalUrl}`);
+  next();
+});
+
 // Health check
 app.get('/health', (req, res) => {
+  console.log('✓ Health check endpoint called');
   res.json({ status: 'healthy', timestamp: new Date().toISOString(), uptime: process.uptime() });
 });
 

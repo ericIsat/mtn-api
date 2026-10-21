@@ -1,0 +1,18 @@
+$kind: http-request
+name: "Example 6: Frequency-Based Elements"
+description: "Example with different frequency elements: daily transport (KES 500/day), weekly overtime (KES 2000/week), quarterly bonus (KES 15000/quarter)"
+url: "{{baseUrl}}/tenant/payroll/calculate"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "month": 12,
+      "year": 2024,
+      "employeeIds": ["{{employeeId}}"],
+      "includeCalculationBreakdown": true
+    }
+order: 6000

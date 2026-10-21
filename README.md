@@ -1,81 +1,105 @@
-# File Share API
+# File Share API - Client Documentation
 
-A Zoho Catalyst serverless API for file upload and download with public access.
+Access files shared with your country via this API.
 
-## Overview
 
-- **Admin**: Upload files via POST endpoint
-- **External Users**: Download files via GET endpoint (no auth required)
-- **Storage**: Files stored in Catalyst File Store, metadata in DataStore
+## Your Access
 
-## Setup
+### Zambia Client
+- **List Files:** `https://secure-data-bridge-942310354.development.catalystserverless.com/server/file_management_function/api/files?country=Zambia`
+- **Download File:** `https://secure-data-bridge-942310354.development.catalystserverless.com/server/file_management_function/api/files/{fileId}`
 
-### 1. Create DataStore Table
+### South Sudan Client
+- **List Files:** `https://secure-data-bridge-942310354.development.catalystserverless.com/server/file_management_function/api/files?country=South%20Sudan`
+- **Download File:** `https://secure-data-bridge-942310354.development.catalystserverless.com/server/file_management_function/api/files/{fileId}`
 
-Go to Catalyst Console → Data Store → Tables and create a new table:
+### Other Countries
+Replace the country parameter in the URL with your country name:
+- Kenya, South Sudan, Tanzania, UAE, Liberia, Zambia, DRC, Rwanda, Uganda
 
-**Table Name**: `SharedFiles`
+---
 
-**Columns**:
-| Column | Type | Properties |
-|--------|------|-----------|
-| `fileId` | Var Char (36) | ✅ Unique, ✅ Mandatory |
-| `originalName` | Var Char (255) | ✅ Mandatory |
-| `mimeType` | Var Char (100) | - |
-| `fileSize` | Number | - |
-| `uploadedBy` | Var Char (255) | - |
-| `uploadedDate` | Var Char (30) | - |
-| `status` | Var Char (20) | - |
+## How to Use
 
-### 2. Install Dependencies
+### Step 1: Get Your Files (GET Request)
 
 ```bash
-cd functions/file_management_function
-npm install
+curl "https://secure-data-bridge-942310354.development.catalystserverless.com/server/file_management_function/api/files?country=Zambia"
 ```
 
-### 3. Deploy
+**Response Example:**
+```json
+{
+  "success": true,
+  "message": "Files retrieved successfully",
+  "count": 2,
+  "data": [
+    {
+      "fileId": "ee049497-964d-411d-b163-52249ac09ac5",
+      "originalName": "Budget_2024.xlsx",
+      "fileSize": 243744,
+      "mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "uploadedBy": "admin",
+      "country": "Zambia",
+      "uploadedDate": "2026-10-15T06:50:36.706Z",
+      "status": "Active"
+    },
+    {
+      "fileId": "f1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+      "originalName": "Report_Q4.pdf",
+      "fileSize": 512000,
+      "mimeType": "application/pdf",
+      "uploadedBy": "admin",
+      "country": "Zambia",
+      "uploadedDate": "2026-10-14T10:20:15.000Z",
+      "status": "Active"
+    }
+  ]
+}
+```
+
+### Step 2: Download File (GET Request)
+
+Use the `fileId` from the files list to download:
 
 ```bash
-catalyst deploy
+curl "https://secure-data-bridge-942310354.development.catalystserverless.com/server/file_management_function/api/files/ee049497-964d-411d-b163-52249ac09ac5"
 ```
 
-## API Endpoints
+This returns the file metadata and download information. Use the `fileId` to download the actual file content.
 
-### Upload File (Admin)
-```
-POST /api/files/upload
-Content-Type: multipart/form-data
+---
 
-Parameters:
-- file: (required) File to upload
-- uploadedBy: (optional) Admin identifier, defaults to 'admin'
-```
+## File Information
 
-### List All Files (Public)
-```
-GET /api/files
-```
+Each file in your response includes:
 
-### Download File (Public)
-```
-GET /api/files/:fileId
-```
+| Field | Description |
+|-------|-------------|
+| `fileId` | Unique identifier for the file |
+| `originalName` | File name |
+| `fileSize` | Size in bytes |
+| `mimeType` | File type (e.g., application/pdf) |
+| `uploadedBy` | Who uploaded the file |
+| `country` | Country classification |
+| `uploadedDate` | When the file was uploaded |
+| `status` | File status (Active/Archived) |
 
-### Health Check
-```
-GET /health
-```
+---
 
-## File Limits
-- Maximum file size: 50MB
-- File storage: Catalyst File Store (shared_files folder)
+## Response Codes
 
-## Console Logs
+- **200** - Success (files retrieved)
+- **400** - Bad request (invalid parameters)
+- **404** - File not found
+- **500** - Server error
 
-Detailed console logging is included for debugging:
-- File upload tracking
-- Catalyst initialization steps
-- DataStore operations
-- File Store operations
-- Error details with full stack traces
+---
+
+## Need Help?
+
+For technical issues or to request files, contact your account administrator.
+
+---
+
+**Last Updated**: 2026-10-15

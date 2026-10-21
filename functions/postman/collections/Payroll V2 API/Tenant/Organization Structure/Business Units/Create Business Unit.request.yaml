@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/tenant/business-units"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Sales Unit",
+      "code": "SALES",
+      "description": "Sales and Marketing Business Unit"
+    }
+order: 1000

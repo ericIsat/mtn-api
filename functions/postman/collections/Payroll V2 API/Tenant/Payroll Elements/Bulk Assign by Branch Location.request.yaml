@@ -1,0 +1,24 @@
+$kind: http-request
+description: Assign payroll element to employees in specific branch locations
+url: "{{baseUrl}}/tenant/payroll-elements/bulk-assign"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "formulaId": "{{formulaId}}",
+      "name": "Location Allowance",
+      "type": "allowance",
+      "assignedAmount": 3000,
+      "isCash": true,
+      "effectiveFrom": "2025-01-01",
+      "description": "Location specific allowance",
+      "isRecurring": true,
+      "frequency": "weekly",
+      "assignmentType": "branch_location",
+      "targetIds": ["{{branchLocationId}}"
+    }
+order: 12000

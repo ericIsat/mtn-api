@@ -1,0 +1,57 @@
+$kind: http-request
+description: Create employee with JSON payload. Use variables for IDs from previous requests.
+url: "{{baseUrl}}/tenant/employees"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "staffNo": "EMP001",
+      "firstName": "John",
+      "lastName": "Doe",
+      "otherNames": "Michael",
+      "email": "john.doe@company.com",
+      "phone": "+254700123456",
+      "gender": "Male",
+      "nationality": "Kenyan",
+      "nationalId": "12345678",
+      "dob": "1990-01-15",
+      "joiningDate": "2024-01-01",
+      "status": "active",
+      "basicPay": 50000.00,
+      "paymentCurrency": "KES",
+      "isTaxExempted": false,
+      "jobTitle": "Software Developer",
+      "employeeTypeId": "{{employeeTypeId}}",
+      "taxPayerCategoryId": "{{taxPayerCategoryId}}",
+      "employeeClassificationId": "{{employeeClassificationId}}",
+      "departmentId": "{{departmentId}}",
+      "divisionId": "{{divisionId}}",
+      "businessUnitId": "{{businessUnitId}}",
+      "branchLocationId": "{{branchLocationId}}",
+      "accountNumber": "1234567890",
+      "bankName": "KCB Bank",
+      "branchName": "Nairobi Branch",
+      "sortCode": "01001",
+      "contactPerson": {
+        "name": "Mary Doe",
+        "relationship": "Spouse",
+        "phone": "+254700987654",
+        "email": "mary.doe@gmail.com",
+        "address": "123 Main Street, Nairobi",
+        "isEmergencyContact": true
+      },
+      "contractDetails": {
+        "contractType": "permanent",
+        "startDate": "2024-01-01",
+        "endDate": null,
+        "probationPeriod": 6,
+        "noticePeriod": 30,
+        "workingHours": 8,
+        "workingDays": 5
+      }
+    }
+order: 1000

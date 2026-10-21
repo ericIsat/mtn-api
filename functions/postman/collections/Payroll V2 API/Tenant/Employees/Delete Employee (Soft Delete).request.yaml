@@ -1,0 +1,7 @@
+$kind: http-request
+description: Soft delete employee (sets isActive to false)
+url: "{{baseUrl}}/tenant/employees/{{employeeId}}"
+method: DELETE
+headers:
+  Authorization: Bearer {{accessToken}}
+order: 6000

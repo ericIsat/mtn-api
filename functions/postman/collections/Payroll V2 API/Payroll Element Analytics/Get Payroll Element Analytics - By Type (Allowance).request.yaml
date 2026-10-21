@@ -1,0 +1,13 @@
+$kind: http-request
+description: Get analytics for allowance elements only
+url: "{{baseUrl}}/tenant/payroll-element-analytics?timePeriod=12&month={{currentMonth}}&year={{currentYear}}&elementType=allowance"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+  Content-Type: application/json
+queryParams:
+  timePeriod: "12"
+  month: "{{currentMonth}}"
+  year: "{{currentYear}}"
+  elementType: allowance
+order: 3000

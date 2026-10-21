@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/agent/user-invitation/accept"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "token": "invitation_jwt_token_here",
+      "firstName": "John",
+      "lastName": "Doe",
+      "password": "SecurePassword123!"
+    }
+order: 2000

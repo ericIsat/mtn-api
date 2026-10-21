@@ -1,0 +1,26 @@
+$kind: http-request
+description: Assign payroll element to employees in specific departments
+url: "{{baseUrl}}/tenant/payroll-elements/bulk-assign"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "formulaId": "{{formulaId}}",
+      "name": "Department Allowance",
+      "type": "allowance",
+      "percentage": 5,
+      "calculatedOn": "basic_pay",
+      "assignedAmount": 2500,
+      "isCash": true,
+      "effectiveFrom": "2025-01-01",
+      "description": "Department specific allowance (5% of basic pay, assigned: KES 2,500)",
+      "isRecurring": true,
+      "frequency": "monthly",
+      "assignmentType": "department",
+      "targetIds": ["{{departmentId}}"
+    }
+order: 8000

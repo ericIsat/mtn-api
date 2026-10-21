@@ -1,0 +1,7 @@
+$kind: http-request
+description: Verify DKIM record. Add default._domainkey.company.com TXT record with DKIM public key.
+url: "{{baseUrl}}/tenant/email-setup/verify-dkim"
+method: POST
+headers:
+  Authorization: Bearer {{accessToken}}
+order: 3000

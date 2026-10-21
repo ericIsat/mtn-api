@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{baseUrl}}/master/formulas/{{formulaId}}"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Uganda PAYE - Resident Updated",
+      "isActive": true
+    }
+order: 10000

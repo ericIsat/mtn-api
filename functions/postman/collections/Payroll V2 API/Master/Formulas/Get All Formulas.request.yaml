@@ -1,0 +1,23 @@
+$kind: http-request
+url: "{{baseUrl}}/master/formulas?page=1&limit=10"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  - key: page
+    value: "1"
+  - key: limit
+    value: "10"
+  - key: search
+    value: PAYE
+    disabled: true
+  - key: formulaType
+    value: PAYE
+    disabled: true
+  - key: country
+    value: Uganda
+    disabled: true
+  - key: isActive
+    value: "true"
+    disabled: true
+order: 8000

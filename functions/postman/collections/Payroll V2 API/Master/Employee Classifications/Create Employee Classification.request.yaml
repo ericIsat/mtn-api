@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{baseUrl}}/master/employee-classifications"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Primary Employee",
+      "description": "Primary employee classification"
+    }
+order: 1000

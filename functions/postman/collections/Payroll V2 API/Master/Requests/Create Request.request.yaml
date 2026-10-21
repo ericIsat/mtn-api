@@ -1,0 +1,32 @@
+$kind: http-request
+url: "{{baseUrl}}/master/requests"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "companyName": "ACME Corporation",
+      "companyEmail": "admin@acme.com",
+      "companyPhone": "+1-555-0123",
+      "industryType": "Technology",
+      "requestType": "Individual",
+      "companyAddress": {
+        "street": "123 Business Ave",
+        "city": "New York",
+        "state": "NY",
+        "zip": "10001",
+        "country": "United States"
+      },
+      "contactPersons": [
+        {
+          "firstName": "John",
+          "lastName": "Doe",
+          "email": "john.doe@acme.com",
+          "phone": "+1-555-0124",
+          "position": "CEO"
+        }
+      ]
+    }
+order: 1000

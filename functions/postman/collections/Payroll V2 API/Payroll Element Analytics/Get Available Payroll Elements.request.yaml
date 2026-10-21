@@ -1,0 +1,8 @@
+$kind: http-request
+description: Get list of all available payroll elements for analytics
+url: "{{baseUrl}}/tenant/payroll-element-analytics/available-elements"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+  Content-Type: application/json
+order: 7000

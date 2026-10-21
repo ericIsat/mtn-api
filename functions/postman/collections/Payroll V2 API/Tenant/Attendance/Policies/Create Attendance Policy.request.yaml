@@ -1,0 +1,33 @@
+$kind: http-request
+description: Create attendance policy with shift timings, grace periods, overtime rules, and tracking methods.
+url: "{{baseUrl}}/tenant/attendance/policies"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Standard Office Hours",
+      "description": "Standard 9-5 office hours policy",
+      "shiftStartTime": "09:00",
+      "shiftEndTime": "17:00",
+      "standardWorkHoursPerDay": 8,
+      "gracePeriodMinutes": 15,
+      "earlyLeavingGracePeriodMinutes": 15,
+      "lateComingDeductionEnabled": true,
+      "lateComingDeductionAmount": 500,
+      "trackingMethod": ["mobile", "web"],
+      "requiresLocation": true,
+      "overtimeEnabled": true,
+      "overtimePolicy": {
+        "weekdayRate": 1.5,
+        "weekendRate": 2.0,
+        "holidayRate": 2.5,
+        "requiresApproval": true
+      },
+      "isDefault": true,
+      "isActive": true
+    }
+order: 1000

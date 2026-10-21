@@ -1,0 +1,17 @@
+$kind: http-request
+description: Employee submits attendance correction request.
+url: "{{baseUrl}}/tenant/attendance/regularization/request"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "date": "2025-01-20",
+      "checkInTime": "2025-01-20T08:00:00Z",
+      "checkOutTime": "2025-01-20T17:00:00Z",
+      "reason": "Forgot to check in/out due to urgent meeting"
+    }
+order: 5000

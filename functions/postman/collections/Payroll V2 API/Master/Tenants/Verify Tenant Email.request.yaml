@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{baseUrl}}/master/verify?token={{jwtToken}}"
+method: GET
+queryParams:
+  token: "{{jwtToken}}"
+order: 6000

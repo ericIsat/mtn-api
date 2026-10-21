@@ -1,0 +1,24 @@
+$kind: http-request
+url: "{{baseUrl}}/master/reliefs"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Insurance Relief",
+      "country": "Kenya",
+      "reliefType": "Insurance",
+      "calculationType": "Percentage",
+      "percentage": 15,
+      "monthlyLimit": 5000,
+      "annualLimit": 60000,
+      "requiresProof": true,
+      "applicableToAllEmployees": false,
+      "isActive": true,
+      "effectiveFrom": "2024-01-01",
+      "description": "Relief for qualifying insurance premiums"
+    }
+order: 1000

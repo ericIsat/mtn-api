@@ -1,0 +1,18 @@
+$kind: http-request
+name: "Example 2: High Earner with Progressive Tax"
+description: Example for high earner with KES 100,000+ basic pay. Tests progressive PAYE bands (10%, 25%, 30%, 32.5%, 35%) and NSSF Tier 1 & 2 calculations
+url: "{{baseUrl}}/tenant/payroll/calculate"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "month": 12,
+      "year": 2024,
+      "employeeIds": ["{{employeeId}}"],
+      "includeCalculationBreakdown": true
+    }
+order: 2000

@@ -1,0 +1,18 @@
+$kind: http-request
+name: "Example 3: Mid-Month Joiner Proration"
+description: "Example for employee who joined mid-December (e.g., Dec 15). Basic pay should be prorated: KES 50,000 * (17/31 days) = KES 27,419"
+url: "{{baseUrl}}/tenant/payroll/calculate"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "month": 12,
+      "year": 2024,
+      "employeeIds": ["{{employeeId}}"],
+      "includeCalculationBreakdown": true
+    }
+order: 3000

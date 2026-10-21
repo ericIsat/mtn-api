@@ -1,0 +1,20 @@
+$kind: http-request
+description: Update payroll element details
+url: "{{baseUrl}}/tenant/payroll-elements/{{payrollElementId}}"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Updated Transport Allowance",
+      "type": "allowance",
+      "assignedAmount": 6000,
+      "isCash": true,
+      "effectiveTo": "2024-06-30",
+      "status": "active",
+      "description": "Updated monthly transport allowance"
+    }
+order: 5000

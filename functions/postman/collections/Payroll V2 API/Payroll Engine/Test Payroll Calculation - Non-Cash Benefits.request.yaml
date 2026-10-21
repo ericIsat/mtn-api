@@ -1,0 +1,18 @@
+$kind: http-request
+description: Test payroll calculation with non-cash benefits (company car, housing) - should not be included in taxable income
+url: "{{baseUrl}}/tenant/payroll/calculate"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "month": 12,
+      "year": 2024,
+      "employeeIds": ["{{employeeId}}"],
+      "includeCalculationBreakdown": true,
+      "testScenario": "non_cash_benefits"
+    }
+order: 12000

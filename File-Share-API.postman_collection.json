@@ -1,8 +1,8 @@
 {
   "info": {
     "_postman_id": "file-share-api-collection",
-    "name": "File Share API",
-    "description": "Complete API collection for File Share - Upload, Download, List, and Delete files",
+    "name": "File Share API - Multi-Country File Management",
+    "description": "Complete API collection for File Share API - Upload, list, and download files organized by country",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -16,8 +16,9 @@
           "host": ["{{BASE_URL}}"],
           "path": ["health"]
         },
-        "description": "Check if the API server is running and healthy"
-      }
+        "description": "Verify the API server is running and healthy"
+      },
+      "response": []
     },
     {
       "name": "Upload File",
@@ -29,20 +30,20 @@
           "formdata": [
             {
               "key": "file",
-              "description": "File to upload",
+              "description": "File to upload (required)",
               "type": "file",
               "src": []
             },
             {
               "key": "country",
               "value": "{{COUNTRY}}",
-              "description": "Country name (e.g., Zambia, South Sudan)",
+              "description": "Country classification (required) - e.g., Zambia, South Sudan, Kenya, Uganda",
               "type": "text"
             },
             {
               "key": "uploadedBy",
               "value": "admin",
-              "description": "Optional: Admin identifier",
+              "description": "Uploader identifier (optional, defaults to 'admin')",
               "type": "text"
             }
           ]
@@ -52,8 +53,9 @@
           "host": ["{{BASE_URL}}"],
           "path": ["api", "files", "upload"]
         },
-        "description": "Upload a new file with country tag. Returns fileId for future operations."
-      }
+        "description": "Upload a new file with country classification.\n\nRequired fields:\n- file: The file to upload\n- country: Country name\n\nReturns: fileId, originalName, fileSize, mimeType, country, uploadedDate"
+      },
+      "response": []
     },
     {
       "name": "List All Files",
@@ -65,8 +67,9 @@
           "host": ["{{BASE_URL}}"],
           "path": ["api", "files"]
         },
-        "description": "Get a list of all uploaded files with their metadata"
-      }
+        "description": "Retrieve all uploaded files with their metadata\n\nReturns: Array of file objects with fileId, originalName, fileSize, mimeType, uploadedBy, country, uploadedDate, status"
+      },
+      "response": []
     },
     {
       "name": "List Files by Country",
@@ -81,12 +84,27 @@
             {
               "key": "country",
               "value": "{{COUNTRY}}",
-              "description": "Filter files by country (e.g., Zambia, South Sudan)"
+              "description": "Country filter - returns only files for this country"
             }
           ]
         },
-        "description": "Get files filtered by country. Set the COUNTRY variable to filter results."
-      }
+        "description": "Retrieve files filtered by country\n\nQuery Parameters:\n- country: Country name to filter by (e.g., Zambia, South Sudan)\n\nReturns: Array of files matching the country filter"
+      },
+      "response": []
+    },
+    {
+      "name": "Get File Details",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{BASE_URL}}/api/files/{{FILE_ID}}",
+          "host": ["{{BASE_URL}}"],
+          "path": ["api", "files", "{{FILE_ID}}"]
+        },
+        "description": "Get metadata for a specific file by fileId\n\nPath Parameters:\n- FILE_ID: The unique file identifier (from upload response or file list)\n\nReturns: File metadata including fileId, originalName, fileSize, mimeType, uploadedBy, country, uploadedDate, status"
+      },
+      "response": []
     },
     {
       "name": "Download File",
@@ -98,28 +116,35 @@
           "host": ["{{BASE_URL}}"],
           "path": ["api", "files", "{{FILE_ID}}"]
         },
-        "description": "Download a file by its ID. Replace {{FILE_ID}} with actual file ID."
-      }
+        "description": "Download a file by its fileId\n\nPath Parameters:\n- FILE_ID: The unique file identifier (from upload response or file list)\n\nUsage:\n1. Get the fileId from \"List Files\" or \"List Files by Country\" endpoint\n2. Set FILE_ID variable in Postman\n3. Send this request\n4. File will be downloaded or metadata returned\n\nReturns: File content (binary) or file metadata with download URL"
+      },
+      "response": []
     }
   ],
   "variable": [
     {
       "key": "BASE_URL",
+      "value": "https://secure-data-bridge-942310354.catalystserverless.com/server/file_management_function",
+      "type": "string",
+      "description": "Base URL for the File Share API (Production)"
+    },
+    {
+      "key": "LOCAL_URL",
       "value": "http://localhost:3000/server/file_management_function",
       "type": "string",
-      "description": "Base URL for the File Share API"
+      "description": "Local development URL (use for local testing)"
     },
     {
       "key": "FILE_ID",
       "value": "",
       "type": "string",
-      "description": "File ID from upload response"
+      "description": "File ID - Get this from the upload response or file list response"
     },
     {
       "key": "COUNTRY",
       "value": "Zambia",
       "type": "string",
-      "description": "Country name for filtering files (e.g., Zambia, South Sudan)"
+      "description": "Country name for uploads and filtering - Supported: Zambia, South Sudan, Kenya, Uganda, Tanzania, Rwanda, Botswana, Namibia, South Africa, Zimbabwe, Malawi, Mozambique, Angola, Lesotho, Eswatini, Democratic Republic of Congo, Ethiopia, Ghana, Nigeria, Senegal"
     }
   ]
 }

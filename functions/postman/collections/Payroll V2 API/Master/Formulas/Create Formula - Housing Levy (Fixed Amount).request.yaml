@@ -1,0 +1,21 @@
+$kind: http-request
+description: Create fixed amount formula (e.g., 1500 KES per month)
+url: "{{baseUrl}}/master/formulas"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Kenya Housing Levy",
+      "formulaType": "Statutory",
+      "country": "Kenya",
+      "calculationType": "Fixed Amount",
+      "fixedAmount": 1500,
+      "effectiveFrom": "2024-01-01",
+      "mode": "monthly",
+      "calculationSequence": "post-tax"
+    }
+order: 4000

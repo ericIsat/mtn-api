@@ -1,0 +1,17 @@
+$kind: http-request
+description: "Enhanced payroll calculation with complete breakdown: proration + payroll elements + statutory deductions + net pay calculation"
+url: "{{baseUrl}}/tenant/payroll/calculate"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "month": 12,
+      "year": 2024,
+      "employeeIds": ["{{employeeId}}"],
+      "includeCalculationBreakdown": true
+    }
+order: 8000

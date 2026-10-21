@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{baseUrl}}/master/mfa/disable"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "password": "SecurePassword123!"
+    }
+order: 8000

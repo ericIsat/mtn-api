@@ -1,0 +1,19 @@
+$kind: http-request
+description: Get casual payments with optional filters
+url: "{{baseUrl}}/tenant/casual-payments?employeeId={{employeeId}}"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  - key: employeeId
+    value: "{{employeeId}}"
+  - key: startDate
+    value: 2025-01-01
+    disabled: true
+  - key: endDate
+    value: 2025-01-31
+    disabled: true
+  - key: status
+    value: processed
+    disabled: true
+order: 2000

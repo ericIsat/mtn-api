@@ -1,0 +1,13 @@
+$kind: http-request
+description: Test proration for contract employee with specific contract start/end dates
+url: "{{baseUrl}}/tenant/payroll/proration/{{employeeId}}?month=11&year=2024"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  - key: month
+    value: "11"
+    description: Test with contract employee
+  - key: year
+    value: "2024"
+order: 5000

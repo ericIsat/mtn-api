@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/tenant/statutories/:id"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: statutory-uuid-here
+order: 2000

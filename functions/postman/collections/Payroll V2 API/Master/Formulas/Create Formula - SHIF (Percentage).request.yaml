@@ -1,0 +1,22 @@
+$kind: http-request
+description: Create SHIF as 2.75% of Gross Taxable (no taxBands needed)
+url: "{{baseUrl}}/master/formulas"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Kenya SHIF",
+      "formulaType": "Statutory",
+      "country": "Kenya",
+      "calculationType": "Percentage",
+      "percentage": 2.75,
+      "effectiveFrom": "2024-01-01",
+      "calculatedOn": "Gross Taxable",
+      "mode": "monthly",
+      "calculationSequence": "post-tax"
+    }
+order: 6000

@@ -1,0 +1,32 @@
+$kind: http-request
+description: Create leave policy with allocation, carry forward, accrual, and eligibility rules.
+url: "{{baseUrl}}/tenant/leave/policies"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Annual Leave",
+      "leaveType": "annual",
+      "isPaid": true,
+      "annualAllocation": 21,
+      "carryForwardEnabled": true,
+      "maxCarryForward": 5,
+      "carryForwardExpiry": 90,
+      "accrualEnabled": true,
+      "accrualRate": 1.75,
+      "accrualFrequency": "monthly",
+      "minServiceMonths": 3,
+      "maxConsecutiveDays": 14,
+      "minNoticeDays": 7,
+      "requiresDocumentation": true,
+      "documentationThreshold": 5,
+      "allowNegativeBalance": false,
+      "proRataEnabled": true,
+      "applicableToEmployeeTypes": ["permanent", "contract"],
+      "isActive": true
+    }
+order: 1000

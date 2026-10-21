@@ -1,0 +1,13 @@
+$kind: http-request
+description: Get SHIF statutory report with employee deductions
+url: "{{baseUrl}}/tenant/reports/statutory?statutoryName=SHIF&month=12&year=2024&page=1&limit=10"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  statutoryName: SHIF
+  month: "12"
+  year: "2024"
+  page: "1"
+  limit: "10"
+order: 2000

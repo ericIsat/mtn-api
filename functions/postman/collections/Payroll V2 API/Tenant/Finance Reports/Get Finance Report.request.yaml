@@ -1,0 +1,21 @@
+$kind: http-request
+description: Get finance report with payroll deviations between current and previous month for all employees. Returns monthly chart data for the specified time period (3, 6, or 12 months).
+url: "{{baseUrl}}/tenant/reports/finance?month=12&year=2024&page=1&limit=10&timePeriod=12"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  - key: month
+    value: "12"
+    description: Payroll month (1-12)
+  - key: year
+    value: "2024"
+    description: Payroll year
+  - key: page
+    value: "1"
+  - key: limit
+    value: "10"
+  - key: timePeriod
+    value: "12"
+    description: "Time period for monthly chart data: 3 (last 3 months), 6 (last 6 months), or 12 (last 12 months)"
+order: 1000

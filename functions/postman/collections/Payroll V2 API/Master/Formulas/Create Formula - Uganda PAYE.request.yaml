@@ -1,0 +1,55 @@
+$kind: http-request
+url: "{{baseUrl}}/master/formulas"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Uganda PAYE - Resident",
+      "formulaType": "PAYE",
+      "country": "Uganda",
+      "calculationType": "Bands",
+      "residentialStatus": "Resident",
+      "effectiveFrom": "2024-01-01",
+      "calculatedOn": "Gross Taxable",
+      "mode": "monthly",
+      "calculationSequence": "tax",
+      "taxBands": [
+        {
+          "level": 1,
+          "minIncome": 0,
+          "maxIncome": 235000,
+          "formula": "0",
+          "fixedAddition": 0,
+          "description": "Tax-free band"
+        },
+        {
+          "level": 2,
+          "minIncome": 235001,
+          "maxIncome": 335000,
+          "formula": "(TI - 235000) * 0.10",
+          "fixedAddition": 0,
+          "description": "10% on income above 235,000"
+        },
+        {
+          "level": 3,
+          "minIncome": 335001,
+          "maxIncome": 410000,
+          "formula": "(TI - 335000) * 0.20",
+          "fixedAddition": 10000,
+          "description": "20% on income above 335,000 plus 10,000"
+        },
+        {
+          "level": 4,
+          "minIncome": 410001,
+          "maxIncome": null,
+          "formula": "(TI - 410000) * 0.30",
+          "fixedAddition": 25000,
+          "description": "30% on income above 410,000 plus 25,000"
+        }
+      ]
+    }
+order: 1000

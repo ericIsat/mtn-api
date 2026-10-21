@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{baseUrl}}/tenant/employee-reliefs/{{employeeReliefId}}/reject"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "rejectionReason": "Incomplete policy documentation"
+    }
+order: 6000

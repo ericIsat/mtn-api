@@ -1,0 +1,63 @@
+$kind: http-request
+description: Create PAYE formula with progressive tax bands
+url: "{{baseUrl}}/master/formulas"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Kenya PAYE - Resident",
+      "formulaType": "PAYE",
+      "country": "Kenya",
+      "calculationType": "Bands",
+      "effectiveFrom": "2024-01-01",
+      "calculatedOn": "Gross Taxable",
+      "mode": "monthly",
+      "calculationSequence": "tax",
+      "taxBands": [
+        {
+          "level": 1,
+          "minIncome": 0,
+          "maxIncome": 24000,
+          "taxRate": 10,
+          "fixedAddition": 0,
+          "description": "10% on 0 - 24,000"
+        },
+        {
+          "level": 2,
+          "minIncome": 24001,
+          "maxIncome": 32333,
+          "taxRate": 25,
+          "fixedAddition": 0,
+          "description": "25% on next 8,333"
+        },
+        {
+          "level": 3,
+          "minIncome": 32334,
+          "maxIncome": 500000,
+          "taxRate": 30,
+          "fixedAddition": 0,
+          "description": "30% on next 467,667"
+        },
+        {
+          "level": 4,
+          "minIncome": 500001,
+          "maxIncome": 800000,
+          "taxRate": 32.5,
+          "fixedAddition": 0,
+          "description": "32.5% on next 300,000"
+        },
+        {
+          "level": 5,
+          "minIncome": 800001,
+          "maxIncome": null,
+          "taxRate": 35,
+          "fixedAddition": 0,
+          "description": "35% on amounts over 800,000"
+        }
+      ]
+    }
+order: 2000

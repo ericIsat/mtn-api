@@ -1,0 +1,9 @@
+$kind: http-request
+description: Delete employee type (SmartPayday Admin only)
+url: "{{baseUrl}}/master/employee-types/:id"
+method: DELETE
+headers:
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: employee-type-uuid-here
+order: 4000

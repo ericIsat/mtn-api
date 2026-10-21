@@ -1,0 +1,9 @@
+$kind: http-request
+description: Get specific payroll record with complete calculation details including basic pay, allowances, deductions, statutory deductions, and net pay
+url: "{{baseUrl}}/tenant/payroll/records/:id"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: payroll-record-uuid-here
+order: 2000

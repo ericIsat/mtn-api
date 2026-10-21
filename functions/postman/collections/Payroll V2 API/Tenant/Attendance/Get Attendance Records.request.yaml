@@ -1,0 +1,20 @@
+$kind: http-request
+description: Get attendance records with filters. Admin/Reviewer access.
+url: "{{baseUrl}}/tenant/attendance/records"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  - key: employeeId
+    value: "{{employeeId}}"
+    disabled: true
+  - key: startDate
+    value: 2025-01-01
+    disabled: true
+  - key: endDate
+    value: 2025-01-31
+    disabled: true
+  - key: status
+    value: present
+    disabled: true
+order: 4000

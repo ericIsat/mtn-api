@@ -1,0 +1,19 @@
+$kind: http-request
+description: Export variance report as CSV/PDF
+url: "{{baseUrl}}/tenant/cost-centers/reports/variance/export"
+method: POST
+headers:
+  Authorization: Bearer {{accessToken}}
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "startMonth": {{startMonth}},
+      "startYear": {{startYear}},
+      "endMonth": {{endMonth}},
+      "endYear": {{endYear}},
+      "costCenterCode": "CC-001",
+      "entityType": "department"
+    }
+order: 7000

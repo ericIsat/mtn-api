@@ -1,0 +1,13 @@
+$kind: http-request
+description: "Download payslip as PDF. Available templates: standard, classic, modern, corporate, minimal"
+url: "{{baseUrl}}/payslips/download/:recordId?template=standard"
+method: GET
+headers:
+  Authorization: Bearer {{accessToken}}
+queryParams:
+  - key: template
+    value: standard
+    description: "Template: standard, classic, modern, corporate, minimal"
+pathVariables:
+  recordId: payroll-record-uuid-here
+order: 1000

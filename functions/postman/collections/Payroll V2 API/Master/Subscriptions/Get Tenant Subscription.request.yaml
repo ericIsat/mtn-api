@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{baseUrl}}/master/subscriptions/tenant/{{tenantId}}"
+method: GET
+order: 3000

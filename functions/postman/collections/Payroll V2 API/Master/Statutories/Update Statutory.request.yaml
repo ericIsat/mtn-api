@@ -1,0 +1,17 @@
+$kind: http-request
+url: "{{baseUrl}}/master/statutories/:id"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{accessToken}}
+pathVariables:
+  id: statutory-uuid-here
+body:
+  type: text
+  content: |-
+    {
+      "name": "Kenya PAYE Updated",
+      "description": "Updated PAYE description",
+      "isActive": true
+    }
+order: 4000
