@@ -1,0 +1,17 @@
+$kind: http-request
+description: |-
+  Get file metadata by ID
+
+  Flow:
+  1. List files to get the fileId
+  2. Use fileId to retrieve metadata
+  3. Returns: file metadata if it belongs to your MNO + country
+
+  Required:
+  - FILE_ID: from List Files response
+  - accessKey: your access key
+url: "{{BASE_URL}}/api/files/{{FILE_ID}}?accessKey={{API_KEY}}"
+method: GET
+queryParams:
+  accessKey: "{{API_KEY}}"
+order: 3000

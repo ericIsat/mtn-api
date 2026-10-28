@@ -1,0 +1,5 @@
+$kind: http-request
+description: List all registered MNOs
+url: "{{BASE_URL}}/api/mnos"
+method: GET
+order: 2000

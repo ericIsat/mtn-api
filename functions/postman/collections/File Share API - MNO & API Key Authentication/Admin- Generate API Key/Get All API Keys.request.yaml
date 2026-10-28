@@ -1,0 +1,5 @@
+$kind: http-request
+description: List all generated API keys (Admin use)
+url: "{{BASE_URL}}/api/api-keys"
+method: GET
+order: 2000

@@ -1,0 +1,13 @@
+$kind: http-request
+description: |-
+  Get all files for your MNO + country
+
+  Pass your access key as query parameter
+  Returns: only files that belong to your MNO and country
+
+  Response includes: fileId, originalName, fileSize, mimeType, country, uploadedDate
+url: "{{BASE_URL}}/api/files?accessKey={{API_KEY}}"
+method: GET
+queryParams:
+  accessKey: "{{API_KEY}}"
+order: 2000

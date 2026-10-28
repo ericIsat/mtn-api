@@ -1,0 +1,9 @@
+$kind: collection
+description: Complete API for File Share with MNO management and API key authentication
+variables:
+  BASE_URL: http://localhost:3000/server/file_management_function
+  PROD_URL: https://secure-data-bridge-942310354.development.catalystserverless.com/server/file_management_function
+  MNO_ID: ""
+  COUNTRY: Zambia
+  API_KEY: ""
+  FILE_ID: ""
