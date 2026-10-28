@@ -9,6 +9,7 @@ cloudResources:
     ../postman/collections/File Share API: b1907cf1-fb68-4f11-ba80-673af3904eb5
     ../postman/collections/File Share API - Multi-Country File Management: 9444886a-6492-463f-a5d1-c4e4e2576c58
     ../postman/collections/Payroll V2 API: ba8a7bbb-93bc-4aed-8862-ae561abf7294
+    ../postman/collections/File Share API - MNO & API Key Authentication: d381b9fd-2f65-496e-9b7e-a4ed58f413f9
 
 # All resources in the `postman/` folder are automatically registered in Local View.
 # Point to additional files outside the `postman/` folder to register them individually. Example:

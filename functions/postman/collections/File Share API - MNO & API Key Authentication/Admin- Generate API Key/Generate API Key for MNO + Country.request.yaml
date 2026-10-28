@@ -1,0 +1,26 @@
+$kind: http-request
+description: |-
+  Generate API key for MNO + Country (Admin only)
+
+  Flow:
+  1. Admin creates MNO (POST /api/mnos)
+  2. Admin generates API key for MNO + Country using this endpoint
+  3. Admin shares the accessKey with clients
+
+  Parameters:
+  - mnoId: MNO ID (from Create MNO response)
+  - country: Country (Kenya, South Sudan, Tanzania, UAE, Liberia, Zambia, DRC, Rwanda, Uganda)
+
+  Returns: accessKey to be shared with clients
+url: "{{BASE_URL}}/api/api-keys"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "mnoId": {{MNO_ID}},
+      "country": "{{COUNTRY}}"
+    }
+order: 1000

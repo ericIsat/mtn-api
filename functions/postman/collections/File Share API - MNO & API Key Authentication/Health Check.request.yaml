@@ -1,0 +1,5 @@
+$kind: http-request
+description: Verify the API server is running
+url: "{{BASE_URL}}/health"
+method: GET
+order: 4000

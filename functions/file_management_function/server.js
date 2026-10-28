@@ -11,6 +11,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Import routes
 const fileRoutes = require('./src/routes/file.routes');
+const mnoRoutes = require('./src/routes/mno.routes');
+const apikeyRoutes = require('./src/routes/apikey.routes');
 
 // Debug all requests
 app.use((req, res, next) => {
@@ -27,6 +29,12 @@ app.get('/health', (req, res) => {
 
 // File routes
 app.use('/api/files', fileRoutes);
+
+// MNO routes
+app.use('/api/mnos', mnoRoutes);
+
+// API Key routes
+app.use('/api/api-keys', apikeyRoutes);
 
 // 404 handler
 app.use((req, res) => {

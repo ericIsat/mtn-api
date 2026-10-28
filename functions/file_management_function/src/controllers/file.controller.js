@@ -4,6 +4,14 @@ const { Stratus } = require('@zcatalyst/stratus');
 
 const TABLE_NAME = 'SharedFiles';
 
+const getStratusObjectKeys = (country, fileId) => {
+  const countrySlug = country.trim().toLowerCase().replace(/\s+/g, '-');
+  const countryFolders = countrySlug === 'zambia'
+    ? ['mtn-zambia', countrySlug]
+    : [countrySlug];
+  return countryFolders.map((folder) => `${folder}/${fileId}`);
+};
+
 const initializeCatalyst = (req) => {
   console.log('========== CATALYST INIT START ==========');
   try {
@@ -22,6 +30,16 @@ const uploadFile = async (req, res) => {
   console.log('Timestamp:', new Date().toISOString());
 
   try {
+    const { accessKey } = req.body;
+
+    if (!accessKey) {
+      console.error('❌ Access key is required');
+      return res.status(401).json({
+        success: false,
+        message: 'Access key is required for uploads'
+      });
+    }
+
     console.log('✓ Checking if file exists...');
     if (!req.file) {
       console.error('❌ No file provided in request');
@@ -43,15 +61,39 @@ const uploadFile = async (req, res) => {
     console.log('✓ Initializing Catalyst SDK...');
     const catalystApp = initializeCatalyst(req);
 
-    console.log('Available Catalyst methods:', Object.getOwnPropertyNames(Object.getPrototypeOf(catalystApp)));
+    // Validate access key
+    console.log('⏳ Validating access key...');
+    console.log('Access key to validate:', accessKey);
+    const apiKeyQuery = `SELECT * FROM APIKeys WHERE accesskey='${accessKey.replace(/'/g, "''")}'`;
+    console.log('Query:', apiKeyQuery);
+    const apiKeyResults = await catalystApp.zcql().executeZCQLQuery(apiKeyQuery);
+    console.log('API key query results:', JSON.stringify(apiKeyResults, null, 2));
+
+    if (!apiKeyResults || apiKeyResults.length === 0) {
+      console.error('❌ Invalid API key');
+      // Debug: fetch all keys to see what's in the database
+      console.log('⏳ Fetching all API keys for debugging...');
+      const allKeysQuery = `SELECT * FROM APIKeys`;
+      const allKeys = await catalystApp.zcql().executeZCQLQuery(allKeysQuery);
+      console.log('All API keys in database:', JSON.stringify(allKeys, null, 2));
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid API key'
+      });
+    }
+
+    const apiKeyData = apiKeyResults[0].APIKeys || apiKeyResults[0];
+    const mnoId = apiKeyData.mnoId;
+    const country = apiKeyData.country;
+
+    console.log(`✓ API key valid for MNO: ${mnoId}, Country: ${country}`);
 
     console.log(`✓ Accessing DataStore table: "${TABLE_NAME}"`);
     const table = catalystApp.datastore().table(TABLE_NAME);
 
     const fileId = uuidv4();
     const { filename, mimetype, size, buffer } = req.file;
-    const uploadedBy = req.body.uploadedBy || 'admin';
-    const country = req.body.country || null;
+    const uploadedBy = 'admin';
     const originalName = filename || 'unknown';
 
     console.log(`✓ Generated File ID: ${fileId}`);
@@ -61,19 +103,41 @@ const uploadFile = async (req, res) => {
     console.log(`✓ Country: ${country || 'Not specified'}`);
     console.log(`✓ Buffer size: ${buffer.length}`);
 
+    console.log(`✓ File received: ${size} bytes`);
+
+    // Upload to Stratus
     console.log(`⏳ Uploading file to Stratus bucket: api-mtn...`);
-    const stratus = new Stratus(catalystApp);
-    const bucket = stratus.bucket('api-mtn');
-    const objectKey = `${country.toLowerCase().replace(/\s+/g, '-')}/${fileId}`;
+    let stratusPath = null;
+    try {
+      const stratus = new Stratus(catalystApp);
+      const bucket = stratus.bucket('api-mtn');
+      const [objectKey] = getStratusObjectKeys(country, fileId);
 
-    const uploadOptions = {
-      overwrite: true,
-      contentType: mimetype
-    };
+      const uploadOptions = {
+        overwrite: true,
+        contentType: mimetype
+      };
 
-    const uploadRes = await bucket.putObject(objectKey, buffer, uploadOptions);
-    console.log('✓ File uploaded to Stratus successfully');
-    console.log('Upload response:', JSON.stringify(uploadRes, null, 2));
+      console.log(`📁 Object key: ${objectKey}`);
+      console.log('Stratus destination:', JSON.stringify(bucket.toJSON()));
+      await bucket.putObject(objectKey, buffer, uploadOptions);
+
+      const objectExists = await bucket.headObject(objectKey, { throwErr: true });
+      if (!objectExists) {
+        throw new Error(`Stratus did not confirm the uploaded object: ${objectKey}`);
+      }
+
+      console.log('✓ Stratus confirmed the object exists');
+      stratusPath = objectKey;
+    } catch (error) {
+      console.error('❌ Stratus upload error:', error.message);
+      console.error('Error details:', JSON.stringify(error, null, 2));
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to upload file to Stratus',
+        error: error.message
+      });
+    }
 
     const fileMetadata = {
       fileId,
@@ -82,6 +146,7 @@ const uploadFile = async (req, res) => {
       fileSize: size,
       uploadedBy,
       country: country,
+      mnoId: mnoId,
       uploadedDate: new Date().toISOString(),
       status: 'Active'
     };
@@ -131,14 +196,50 @@ const uploadFile = async (req, res) => {
 const downloadFile = async (req, res) => {
   console.log('\n========== DOWNLOAD FILE START ==========');
   const { fileId } = req.params;
+  const { accessKey } = req.query;
   console.log('File ID:', fileId);
 
   try {
+    if (!accessKey) {
+      console.error('❌ Access key is required');
+      return res.status(401).json({
+        success: false,
+        message: 'Access key is required'
+      });
+    }
+
     console.log('✓ Initializing Catalyst...');
     const catalystApp = initializeCatalyst(req);
 
+    // Validate access key
+    console.log('⏳ Validating access key...');
+    console.log('Access key to validate:', accessKey);
+    const apiKeyQuery = `SELECT * FROM APIKeys WHERE accesskey='${accessKey.replace(/'/g, "''")}'`;
+    console.log('Query:', apiKeyQuery);
+    const apiKeyResults = await catalystApp.zcql().executeZCQLQuery(apiKeyQuery);
+    console.log('API key query results:', JSON.stringify(apiKeyResults, null, 2));
+
+    if (!apiKeyResults || apiKeyResults.length === 0) {
+      console.error('❌ Invalid API key');
+      // Debug: fetch all keys to see what's in the database
+      console.log('⏳ Fetching all API keys for debugging...');
+      const allKeysQuery = `SELECT * FROM APIKeys`;
+      const allKeys = await catalystApp.zcql().executeZCQLQuery(allKeysQuery);
+      console.log('All API keys in database:', JSON.stringify(allKeys, null, 2));
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid API key'
+      });
+    }
+
+    const apiKeyData = apiKeyResults[0].APIKeys || apiKeyResults[0];
+    const mnoId = apiKeyData.mnoId;
+    const country = apiKeyData.country;
+
+    console.log(`✓ API key valid for MNO: ${mnoId}, Country: ${country}`);
+
     console.log(`⏳ Querying for file: ${fileId}`);
-    const query = `SELECT * FROM ${TABLE_NAME} WHERE fileId='${fileId.replace(/'/g, "''")}'`;
+    const query = `SELECT * FROM ${TABLE_NAME} WHERE fileId='${fileId.replace(/'/g, "''")}' AND mnoId=${mnoId} AND country='${country}'`;
     console.log('Query:', query);
     const results = await catalystApp.zcql().executeZCQLQuery(query);
     console.log('Query results count:', results?.length);
@@ -164,46 +265,63 @@ const downloadFile = async (req, res) => {
       });
     }
 
-    console.log(`⏳ Downloading file from Stratus bucket: api-mtn...`);
-    const stratus = new Stratus(catalystApp);
-    const bucket = stratus.bucket('api-mtn');
-
-    // Try dynamic path first, then fallback to legacy mtn-zambia path
-    let objectKey = `${fileMetadata.country.toLowerCase().replace(/\s+/g, '-')}/${fileId}`;
-    console.log(`⏳ Trying path: ${objectKey}`);
-
-    let fileStream;
+    // Download from Stratus
+    console.log(`⏳ Downloading file from Stratus...`);
     try {
-      fileStream = await bucket.getObject(objectKey);
-    } catch (err) {
-      console.log(`⚠️ Path not found, trying legacy path: mtn-zambia/${fileId}`);
-      objectKey = `mtn-zambia/${fileId}`;
-      fileStream = await bucket.getObject(objectKey);
-    }
-    console.log(`✓ File stream retrieved from Stratus`);
+      const stratus = new Stratus(catalystApp);
+      const bucket = stratus.bucket('api-mtn');
+      const objectKeys = getStratusObjectKeys(fileMetadata.country, fileId);
+      let fileStream;
+      let objectKey;
 
-    // Set response headers
-    res.setHeader('Content-Type', fileMetadata.mimeType || 'application/octet-stream');
-    res.setHeader('Content-Disposition', `attachment; filename="${fileMetadata.originalName}"`);
-    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-
-    // Pipe the stream to the response
-    fileStream.pipe(res);
-
-    fileStream.on('error', (err) => {
-      console.error('❌ Stream error:', err.message);
-      if (!res.headersSent) {
-        res.status(500).json({
-          success: false,
-          message: 'Error downloading file',
-          error: err.message
-        });
+      for (const candidateKey of objectKeys) {
+        try {
+          fileStream = await bucket.getObject(candidateKey);
+          objectKey = candidateKey;
+          break;
+        } catch (error) {
+          console.warn(`⚠️ Stratus read failed for ${candidateKey}:`, error.message);
+          if (candidateKey === objectKeys[objectKeys.length - 1]) {
+            throw error;
+          }
+        }
       }
-    });
 
-    fileStream.on('end', () => {
-      console.log('✓✓✓ FILE DOWNLOAD COMPLETE ✓✓✓');
-    });
+      console.log(`📁 Object key: ${objectKey}`);
+      console.log('✓ File retrieved from Stratus');
+
+      // Set response headers
+      res.setHeader('Content-Type', fileMetadata.mimeType || 'application/octet-stream');
+      res.setHeader('Content-Disposition', `attachment; filename="${fileMetadata.originalName}"`);
+      res.setHeader('Content-Length', fileMetadata.fileSize);
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+
+      // Pipe the stream to the response
+      fileStream.pipe(res);
+
+      fileStream.on('error', (err) => {
+        console.error('❌ Stream error:', err.message);
+        if (!res.headersSent) {
+          res.status(500).json({
+            success: false,
+            message: 'Error downloading file',
+            error: err.message
+          });
+        }
+      });
+
+      fileStream.on('end', () => {
+        console.log('✓✓✓ FILE DOWNLOAD COMPLETE ✓✓✓');
+      });
+    } catch (error) {
+      console.error('❌ Stratus download error:', error.message);
+      console.error('Error details:', JSON.stringify(error, null, 2));
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to download file from Stratus',
+        error: error.message
+      });
+    }
 
   } catch (error) {
     console.error('\n❌❌❌ DOWNLOAD ERROR ❌❌❌');
@@ -229,19 +347,48 @@ const listFiles = async (req, res) => {
   console.log('Request query:', req.query);
 
   try {
+    const { accessKey } = req.query;
+
+    if (!accessKey) {
+      console.error('❌ Access key is required');
+      return res.status(401).json({
+        success: false,
+        message: 'Access key is required'
+      });
+    }
+
     console.log('✓ Initializing Catalyst...');
     const catalystApp = initializeCatalyst(req);
 
-    const country = req.query.country;
-    console.log(`✓ Country filter: ${country || 'All countries'}`);
+    // Validate access key
+    console.log('⏳ Validating access key...');
+    console.log('Access key to validate:', accessKey);
+    const apiKeyQuery = `SELECT * FROM APIKeys WHERE accesskey='${accessKey.replace(/'/g, "''")}'`;
+    console.log('Query:', apiKeyQuery);
+    const apiKeyResults = await catalystApp.zcql().executeZCQLQuery(apiKeyQuery);
+    console.log('API key query results:', JSON.stringify(apiKeyResults, null, 2));
 
-    console.log(`⏳ Listing files from ${TABLE_NAME} table...`);
-    let query = `SELECT * FROM ${TABLE_NAME}`;
-
-    if (country) {
-      query += ` WHERE country='${country}'`;
+    if (!apiKeyResults || apiKeyResults.length === 0) {
+      console.error('❌ Invalid API key');
+      // Debug: fetch all keys to see what's in the database
+      console.log('⏳ Fetching all API keys for debugging...');
+      const allKeysQuery = `SELECT * FROM APIKeys`;
+      const allKeys = await catalystApp.zcql().executeZCQLQuery(allKeysQuery);
+      console.log('All API keys in database:', JSON.stringify(allKeys, null, 2));
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid API key'
+      });
     }
 
+    const apiKeyData = apiKeyResults[0].APIKeys || apiKeyResults[0];
+    const mnoId = apiKeyData.mnoId;
+    const country = apiKeyData.country;
+
+    console.log(`✓ API key valid for MNO: ${mnoId}, Country: ${country}`);
+
+    console.log(`⏳ Listing files from ${TABLE_NAME} table...`);
+    let query = `SELECT * FROM ${TABLE_NAME} WHERE mnoId=${mnoId} AND country='${country}'`;
     query += ` ORDER BY uploadedDate DESC`;
     console.log('Query:', query);
     const results = await catalystApp.zcql().executeZCQLQuery(query);

@@ -1,8 +1,8 @@
 {
   "info": {
     "_postman_id": "file-share-api-collection",
-    "name": "File Share API - Multi-Country File Management",
-    "description": "Complete API collection for File Share API - Upload, list, and download files organized by country",
+    "name": "File Share API - MNO & API Key Authentication",
+    "description": "Complete API for File Share with MNO management and API key authentication",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -16,135 +16,207 @@
           "host": ["{{BASE_URL}}"],
           "path": ["health"]
         },
-        "description": "Verify the API server is running and healthy"
+        "description": "Verify the API server is running"
       },
       "response": []
     },
     {
-      "name": "Upload File",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "formdata",
-          "formdata": [
-            {
-              "key": "file",
-              "description": "File to upload (required)",
-              "type": "file",
-              "src": []
+      "name": "Admin: MNO Management",
+      "item": [
+        {
+          "name": "Create MNO",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Airtel\",\n  \"description\": \"Airtel Zambia Ltd\"\n}"
             },
-            {
-              "key": "country",
-              "value": "{{COUNTRY}}",
-              "description": "Country classification (required) - e.g., Zambia, South Sudan, Kenya, Uganda",
-              "type": "text"
+            "url": {
+              "raw": "{{BASE_URL}}/api/mnos",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "mnos"]
             },
-            {
-              "key": "uploadedBy",
-              "value": "admin",
-              "description": "Uploader identifier (optional, defaults to 'admin')",
-              "type": "text"
-            }
-          ]
+            "description": "Create a new Mobile Network Operator (MNO)\n\nReturns: mnoId (save this and share with MNO admin)"
+          },
+          "response": []
         },
-        "url": {
-          "raw": "{{BASE_URL}}/api/files/upload",
-          "host": ["{{BASE_URL}}"],
-          "path": ["api", "files", "upload"]
-        },
-        "description": "Upload a new file with country classification.\n\nRequired fields:\n- file: The file to upload\n- country: Country name\n\nReturns: fileId, originalName, fileSize, mimeType, country, uploadedDate"
-      },
-      "response": []
+        {
+          "name": "Get All MNOs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/mnos",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "mnos"]
+            },
+            "description": "List all registered MNOs"
+          },
+          "response": []
+        }
+      ]
     },
     {
-      "name": "List All Files",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{BASE_URL}}/api/files",
-          "host": ["{{BASE_URL}}"],
-          "path": ["api", "files"]
+      "name": "Admin: Generate API Key",
+      "item": [
+        {
+          "name": "Generate API Key for MNO + Country",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mnoId\": {{MNO_ID}},\n  \"country\": \"{{COUNTRY}}\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/api-keys",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "api-keys"]
+            },
+            "description": "Generate API key for MNO + Country (Admin only)\n\nFlow:\n1. Admin creates MNO (POST /api/mnos)\n2. Admin generates API key for MNO + Country using this endpoint\n3. Admin shares the accessKey with clients\n\nParameters:\n- mnoId: MNO ID (from Create MNO response)\n- country: Country (Kenya, South Sudan, Tanzania, UAE, Liberia, Zambia, DRC, Rwanda, Uganda)\n\nReturns: accessKey to be shared with clients"
+          },
+          "response": []
         },
-        "description": "Retrieve all uploaded files with their metadata\n\nReturns: Array of file objects with fileId, originalName, fileSize, mimeType, uploadedBy, country, uploadedDate, status"
-      },
-      "response": []
+        {
+          "name": "Get All API Keys",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/api-keys",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "api-keys"]
+            },
+            "description": "List all generated API keys (Admin use)"
+          },
+          "response": []
+        }
+      ]
     },
     {
-      "name": "List Files by Country",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{BASE_URL}}/api/files?country={{COUNTRY}}",
-          "host": ["{{BASE_URL}}"],
-          "path": ["api", "files"],
-          "query": [
-            {
-              "key": "country",
-              "value": "{{COUNTRY}}",
-              "description": "Country filter - returns only files for this country"
-            }
-          ]
+      "name": "Client: File Operations",
+      "item": [
+        {
+          "name": "Upload File",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "description": "File to upload",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "accessKey",
+                  "value": "{{API_KEY}}",
+                  "description": "Access key from Generate API Key response (e.g., sk_mtn_zambia_...)",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/files/upload",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "files", "upload"]
+            },
+            "description": "Upload a file\n\nFlow:\n1. Receive API key from admin\n2. Upload file with the API key in form data\n3. File is automatically linked to MNO + country from the API key"
+          },
+          "response": []
         },
-        "description": "Retrieve files filtered by country\n\nQuery Parameters:\n- country: Country name to filter by (e.g., Zambia, South Sudan)\n\nReturns: Array of files matching the country filter"
-      },
-      "response": []
-    },
-    {
-      "name": "Get File Details",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{BASE_URL}}/api/files/{{FILE_ID}}",
-          "host": ["{{BASE_URL}}"],
-          "path": ["api", "files", "{{FILE_ID}}"]
+        {
+          "name": "List Files",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/files?accessKey={{API_KEY}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "files"],
+              "query": [
+                {
+                  "key": "accessKey",
+                  "value": "{{API_KEY}}"
+                }
+              ]
+            },
+            "description": "Get all files for your MNO + country\n\nPass your access key as query parameter\nReturns: only files that belong to your MNO and country\n\nResponse includes: fileId, originalName, fileSize, mimeType, country, uploadedDate"
+          },
+          "response": []
         },
-        "description": "Get metadata for a specific file by fileId\n\nPath Parameters:\n- FILE_ID: The unique file identifier (from upload response or file list)\n\nReturns: File metadata including fileId, originalName, fileSize, mimeType, uploadedBy, country, uploadedDate, status"
-      },
-      "response": []
-    },
-    {
-      "name": "Download File",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{BASE_URL}}/api/files/{{FILE_ID}}",
-          "host": ["{{BASE_URL}}"],
-          "path": ["api", "files", "{{FILE_ID}}"]
-        },
-        "description": "Download a file by its fileId\n\nPath Parameters:\n- FILE_ID: The unique file identifier (from upload response or file list)\n\nUsage:\n1. Get the fileId from \"List Files\" or \"List Files by Country\" endpoint\n2. Set FILE_ID variable in Postman\n3. Send this request\n4. File will be downloaded or metadata returned\n\nReturns: File content (binary) or file metadata with download URL"
-      },
-      "response": []
+        {
+          "name": "Download File",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/files/{{FILE_ID}}?accessKey={{API_KEY}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "files", "{{FILE_ID}}"],
+              "query": [
+                {
+                  "key": "accessKey",
+                  "value": "{{API_KEY}}"
+                }
+              ]
+            },
+            "description": "Get file metadata by ID\n\nFlow:\n1. List files to get the fileId\n2. Use fileId to retrieve metadata\n3. Returns: file metadata if it belongs to your MNO + country\n\nRequired:\n- FILE_ID: from List Files response\n- accessKey: your access key"
+          },
+          "response": []
+        }
+      ]
     }
   ],
   "variable": [
     {
       "key": "BASE_URL",
-      "value": "https://secure-data-bridge-942310354.catalystserverless.com/server/file_management_function",
-      "type": "string",
-      "description": "Base URL for the File Share API (Production)"
-    },
-    {
-      "key": "LOCAL_URL",
       "value": "http://localhost:3000/server/file_management_function",
       "type": "string",
-      "description": "Local development URL (use for local testing)"
+      "description": "Local development URL"
     },
     {
-      "key": "FILE_ID",
+      "key": "PROD_URL",
+      "value": "https://secure-data-bridge-942310354.development.catalystserverless.com/server/file_management_function",
+      "type": "string",
+      "description": "Production URL"
+    },
+    {
+      "key": "MNO_ID",
       "value": "",
       "type": "string",
-      "description": "File ID - Get this from the upload response or file list response"
+      "description": "Your MNO ID (from admin)"
     },
     {
       "key": "COUNTRY",
       "value": "Zambia",
       "type": "string",
-      "description": "Country name for uploads and filtering - Supported: Zambia, South Sudan, Kenya, Uganda, Tanzania, Rwanda, Botswana, Namibia, South Africa, Zimbabwe, Malawi, Mozambique, Angola, Lesotho, Eswatini, Democratic Republic of Congo, Ethiopia, Ghana, Nigeria, Senegal"
+      "description": "Country: Kenya, South Sudan, Tanzania, UAE, Liberia, Zambia, DRC, Rwanda, Uganda"
+    },
+    {
+      "key": "API_KEY",
+      "value": "",
+      "type": "string",
+      "description": "Your API key - use the 'accessKey' value from the Generate API Key response (e.g., sk_mtn_zambia_..."
+    },
+    {
+      "key": "FILE_ID",
+      "value": "",
+      "type": "string",
+      "description": "File ID from List Files response"
     }
   ]
 }

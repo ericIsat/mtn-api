@@ -24,6 +24,7 @@ router.post('/upload', (req, res, next) => {
   let fileData = null;
   let uploadedBy = 'admin';
   let country = '';
+  let accessKey = '';
 
   bb.on('file', (fieldname, file, info) => {
     const chunks = [];
@@ -47,17 +48,21 @@ router.post('/upload', (req, res, next) => {
   });
 
   bb.on('field', (fieldname, val) => {
+    console.log(`Field: ${fieldname} = ${val}`);
     if (fieldname === 'uploadedBy') {
       uploadedBy = val;
     } else if (fieldname === 'country') {
       country = val;
+    } else if (fieldname === 'accessKey') {
+      accessKey = val;
+      console.log(`✓ Access key set: ${accessKey}`);
     }
   });
 
   bb.on('close', () => {
     if (fileData) {
       req.file = fileData;
-      req.body = { uploadedBy, country };
+      req.body = { uploadedBy, country, accessKey };
       fileController.uploadFile(req, res);
     } else {
       res.status(400).json({ success: false, message: 'No file uploaded' });

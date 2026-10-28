@@ -1,0 +1,22 @@
+$kind: http-request
+description: |-
+  Upload a file
+
+  Flow:
+  1. Receive API key from admin
+  2. Upload file with the API key in form data
+  3. File is automatically linked to MNO + country from the API key
+url: "{{BASE_URL}}/api/files/upload"
+method: POST
+body:
+  type: formdata
+  content:
+    - type: file
+      key: file
+      src: []
+      description: File to upload
+    - type: text
+      key: accessKey
+      value: "{{API_KEY}}"
+      description: Access key from Generate API Key response (e.g., sk_mtn_zambia_...)
+order: 1000

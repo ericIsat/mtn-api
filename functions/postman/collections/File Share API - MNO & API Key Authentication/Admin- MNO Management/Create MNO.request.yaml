@@ -1,0 +1,17 @@
+$kind: http-request
+description: |-
+  Create a new Mobile Network Operator (MNO)
+
+  Returns: mnoId (save this and share with MNO admin)
+url: "{{BASE_URL}}/api/mnos"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "name": "Airtel",
+      "description": "Airtel Zambia Ltd"
+    }
+order: 1000
