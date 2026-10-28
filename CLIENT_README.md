@@ -1,106 +1,42 @@
-# File Share API - Client Documentation
+# File Share API - Client Guide
 
-Access files shared with your country via this API.
+Your administrator will share the API key issued for your MNO and country. Use it to list and download your files; the key determines your access scope.
 
----
+## API base URL
 
-## Your Access
+```text
+https://secure-data-bridge-942310354.development.catalystserverless.com/server/file_management_function
+```
 
-### Zambia Client
-- **List Files:** `https://secure-data-bridge-942310354.development.catalystserverless.com/server/file_management_function/api/files?country=Zambia`
-- **Download File:** `https://secure-data-bridge-942310354.development.catalystserverless.com/server/file_management_function/api/files/{fileId}`
+Replace this URL if you are using a different Catalyst environment.
 
-### South Sudan Client
-- **List Files:** `https://secure-data-bridge-942310354.development.catalystserverless.com/server/file_management_function/api/files?country=South%20Sudan`
-- **Download File:** `https://secure-data-bridge-942310354.development.catalystserverless.com/server/file_management_function/api/files/{fileId}`
+## List files
 
-### Other Countries
-Replace the country parameter in the URL with your country name:
-- Kenya, South Sudan, Tanzania, UAE, Liberia, Zambia, DRC, Rwanda, Uganda
-
----
-
-## How to Use
-
-### Step 1: Get Your Files (GET Request)
+Pass your API key as the `accessKey` query parameter:
 
 ```bash
-curl "https://secure-data-bridge-942310354.development.catalystserverless.com/server/file_management_function/api/files?country=Zambia"
+curl "https://secure-data-bridge-942310354.development.catalystserverless.com/server/file_management_function/api/files?accessKey=YOUR_ACCESS_KEY"
 ```
 
-**Response Example:**
-```json
-{
-  "success": true,
-  "message": "Files retrieved successfully",
-  "count": 2,
-  "data": [
-    {
-      "fileId": "ee049497-964d-411d-b163-52249ac09ac5",
-      "originalName": "Budget_2024.xlsx",
-      "fileSize": 243744,
-      "mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      "uploadedBy": "admin",
-      "country": "Zambia",
-      "uploadedDate": "2026-10-15T06:50:36.706Z",
-      "status": "Active"
-    },
-    {
-      "fileId": "f1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
-      "originalName": "Report_Q4.pdf",
-      "fileSize": 512000,
-      "mimeType": "application/pdf",
-      "uploadedBy": "admin",
-      "country": "Zambia",
-      "uploadedDate": "2026-10-14T10:20:15.000Z",
-      "status": "Active"
-    }
-  ]
-}
-```
+The response includes each file's `fileId`, original name, size, MIME type, country, upload date, status, and a relative download URL.
 
-### Step 2: Download File (GET Request)
+## Download a file
 
-Use the `fileId` from the files list to download:
+Use a `fileId` from the list response and include the same API key:
 
 ```bash
-curl "https://secure-data-bridge-942310354.development.catalystserverless.com/server/file_management_function/api/files/ee049497-964d-411d-b163-52249ac09ac5"
+curl -L -o Invoice.pdf \
+  "https://secure-data-bridge-942310354.development.catalystserverless.com/server/file_management_function/api/files/FILE_ID?accessKey=YOUR_ACCESS_KEY"
 ```
 
-This returns the file metadata and download information. Use the `fileId` to download the actual file content.
+The endpoint returns the file contents as an attachment.
 
----
+## Storage details
 
-## File Information
+File contents are stored in the Catalyst Stratus bucket `api-mtn`; Catalyst DataStore contains the file metadata. For example, a Zambia file is stored under `mtn-zambia/<fileId>`, and a South Sudan file under `south-sudan/<fileId>`. A null `fileContent` value in the metadata row is expected.
 
-Each file in your response includes:
+## Security
 
-| Field | Description |
-|-------|-------------|
-| `fileId` | Unique identifier for the file |
-| `originalName` | File name |
-| `fileSize` | Size in bytes |
-| `mimeType` | File type (e.g., application/pdf) |
-| `uploadedBy` | Who uploaded the file |
-| `country` | Country classification |
-| `uploadedDate` | When the file was uploaded |
-| `status` | File status (Active/Archived) |
+Treat your API key as a password. Do not publish it, commit it to source control, or share it in screenshots or logs.
 
----
-
-## Response Codes
-
-- **200** - Success (files retrieved)
-- **400** - Bad request (invalid parameters)
-- **404** - File not found
-- **500** - Server error
-
----
-
-## Need Help?
-
-For technical issues or to request files, contact your account administrator.
-
----
-
-**Last Updated**: 2026-10-15
+For administrator upload instructions, storage details, and response codes, see the [project README](./README.md).
